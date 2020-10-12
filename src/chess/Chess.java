@@ -17,9 +17,9 @@ import chess.pieces.Rook;
 
 public class Chess {
 	
-	public Chess[][] chess_board = new Chess[8][8];
+	public static Chess[][] chess_board = new Chess[8][8];
 	
-	public Chess() {
+	public static void initBoard() {
 		chess_board[0][0] = new Rook("bR", "black");
 		chess_board[0][1] = new Knight("bN", "black");
 		chess_board[0][2] = new Bishop("bB", "black");
@@ -48,31 +48,43 @@ public class Chess {
 			}
 		}
 		
-		chess_board[7][0] = new Rook("bR", "white");
-		chess_board[7][1] = new Knight("bN", "white");
-		chess_board[7][2] = new Bishop("bB", "white");
-		chess_board[7][3] = new Queen("bQ", "white");
-		chess_board[7][4] = new King("bK", "white");
-		chess_board[7][5] = new Bishop("bB", "white");
-		chess_board[7][6] = new Knight("bN", "white");
-		chess_board[7][7] = new Rook("bR", "white");
-		chess_board[6][0] = new Pawn("bp", "white");
-		chess_board[6][1] = new Pawn("bp", "white");
-		chess_board[6][2] = new Pawn("bp", "white");
-		chess_board[6][3] = new Pawn("bp", "white");
-		chess_board[6][4] = new Pawn("bp", "white");
-		chess_board[6][5] = new Pawn("bp", "white");
-		chess_board[6][6] = new Pawn("bp", "white");
-		chess_board[6][7] = new Pawn("bp", "white");
+		chess_board[7][0] = new Rook("wR", "white");
+		chess_board[7][1] = new Knight("wN", "white");
+		chess_board[7][2] = new Bishop("wB", "white");
+		chess_board[7][3] = new Queen("wQ", "white");
+		chess_board[7][4] = new King("wK", "white");
+		chess_board[7][5] = new Bishop("wB", "white");
+		chess_board[7][6] = new Knight("wN", "white");
+		chess_board[7][7] = new Rook("wR", "white");
+		chess_board[6][0] = new Pawn("wp", "white");
+		chess_board[6][1] = new Pawn("wp", "white");
+		chess_board[6][2] = new Pawn("wp", "white");
+		chess_board[6][3] = new Pawn("wp", "white");
+		chess_board[6][4] = new Pawn("wp", "white");
+		chess_board[6][5] = new Pawn("wp", "white");
+		chess_board[6][6] = new Pawn("wp", "white");
+		chess_board[6][7] = new Pawn("wp", "white");
 		
 	}
+	public String getId() {
+		return "";
+	}
+	
+	public static void printBoard() {
+		for(int i=0; i<chess_board.length; i++) {
+			System.out.println();
+			for(int j=0; j<chess_board[0].length; j++) {
+				System.out.print(chess_board[i][j].getId() + " ");
+			}
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Chess myBoard = new Chess();
-		while(true) {
-			//print the board
-		}
+		initBoard();
+		printBoard();
+		
 
 	}
 

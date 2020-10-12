@@ -10,4 +10,7 @@ public class Pawn extends Chess{
 		this.id = id;
 		this.color = color;
 	}
+	public String getId() {
+		return this.id;
+	}
 }
