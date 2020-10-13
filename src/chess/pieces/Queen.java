@@ -16,8 +16,12 @@ public class Queen extends Chess {
 	
 	//method to check if move is valid
 	public boolean isValid(int[] start, int[] dest) {
-		/*queen can move any number of squares in a straight line 
-		- either vertically, horizontally or diagonally */
+		/*
+		 * queen can move any number of squares in a straight line either vertically, horizontally or diagonally 
+		 * queen cannot jump over their own pieces
+		*/
+		
+		//run through the start and end index and see if any space is occupied by its own piece
 		
 		//start i and j equals start index
 		int start_i = start[0];
@@ -34,15 +38,78 @@ public class Queen extends Chess {
 			return false;
 		}
 		//movement up/down
-		if(start_j == dest_j && start_i != dest_j) {
+		if(start_j == dest_j && start_i != dest_i) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			if(start_i < dest_i) {
+				for(int i=start_i+1; i<dest_i; i++) {
+					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
+			else {
+				for(int i=start_i-1; i>dest_i; i--) {
+					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		//movement left/right
 		if(start_i == dest_i && start_j != dest_j) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			if(start_j < dest_j) {
+				for(int j=start_j+1; j<dest_j; j++) {
+					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
+			else {
+				for(int j=start_j-1; j>dest_j; j--) {
+					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		//movement diagonal
 		if(Math.abs(start_i-dest_i) == Math.abs(start_j-dest_j)) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			//moving up right
+			if(start_i>dest_i && start_j<dest_j) {
+				for(int i=start_i-1, j=start_j+1; i>dest_i && j<dest_j; i--, j++) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+						return false;
+					}
+				}
+			}
+			//moving up left
+			if(start_i>dest_i && start_j>dest_j) {
+				for(int i=start_i-1, j=start_j-1; i>dest_i && j>dest_j; i--, j--) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
+			//moving down right
+			if(start_i<dest_i && start_j>dest_j) {
+				for(int i=start_i+1, j=start_j-1; i<dest_i && j>dest_j; i++, j--) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+						return false;
+					}
+				}
+			}
+			//moving down left
+			if(start_i<dest_i && start_j<dest_j) {
+				for(int i=start_i+1, j=start_j+1; i<dest_i && j<dest_j; i++, j++) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		return false;

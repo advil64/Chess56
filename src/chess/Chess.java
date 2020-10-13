@@ -66,6 +66,7 @@ public class Chess {
 		chess_board[6][5] = new Pawn("wp", "white");
 		chess_board[6][6] = new Pawn("wp", "white");
 		chess_board[6][7] = new Pawn("wp", "white");
+		
 	}
 	public String getId() {
 		return "";

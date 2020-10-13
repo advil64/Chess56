@@ -31,11 +31,41 @@ public class Rook extends Chess{
 			return false;
 		}
 		//movement up/down
-		if(start_j == dest_j && start_i != dest_j) {
+		if(start_j == dest_j && start_i != dest_i) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			if(start_i < dest_i) {
+				for(int i=start_i+1; i<dest_i; i++) {
+					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
+			else {
+				for(int i=start_i-1; i>dest_i; i--) {
+					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		//movement left/right
 		if(start_i == dest_i && start_j != dest_j) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			if(start_j < dest_j) {
+				for(int j=start_j+1; j<dest_j; j++) {
+					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
+			else {
+				for(int j=start_j-1; j>dest_j; j--) {
+					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		return false;

@@ -33,6 +33,39 @@ public class Bishop extends Chess{
 		}
 		//movement diagonal
 		if(Math.abs(start_i-dest_i) == Math.abs(start_j-dest_j)) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			//moving up right
+			if(start_i>dest_i && start_j<dest_j) {
+				for(int i=start_i-1, j=start_j+1; i>dest_i && j<dest_j; i--, j++) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+						return false;
+					}
+				}
+			}
+			//moving up left
+			if(start_i>dest_i && start_j>dest_j) {
+				for(int i=start_i-1, j=start_j-1; i>dest_i && j>dest_j; i--, j--) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")) {
+						return false;
+					}
+				}
+			}
+			//moving down right
+			if(start_i<dest_i && start_j>dest_j) {
+				for(int i=start_i+1, j=start_j-1; i<dest_i && j>dest_j; i++, j--) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+						return false;
+					}
+				}
+			}
+			//moving down left
+			if(start_i<dest_i && start_j<dest_j) {
+				for(int i=start_i+1, j=start_j+1; i<dest_i && j<dest_j; i++, j++) {
+					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		return false;
