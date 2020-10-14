@@ -35,14 +35,14 @@ public class Rook extends Chess{
 			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
 			if(start_i < dest_i) {
 				for(int i=start_i+1; i<dest_i; i++) {
-					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+					if((chess_board[i][start_j].getId().charAt(0) != ' ') && (chess_board[i][start_j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
 			}
 			else {
 				for(int i=start_i-1; i>dest_i; i--) {
-					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+					if((chess_board[i][start_j].getId().charAt(0) != ' ') && (chess_board[i][start_j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
@@ -54,14 +54,14 @@ public class Rook extends Chess{
 			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
 			if(start_j < dest_j) {
 				for(int j=start_j+1; j<dest_j; j++) {
-					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+					if((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
 			}
 			else {
 				for(int j=start_j-1; j>dest_j; j--) {
-					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+					if((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}

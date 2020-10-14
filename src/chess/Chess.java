@@ -66,7 +66,6 @@ public class Chess {
 		chess_board[6][5] = new Pawn("wp", "white");
 		chess_board[6][6] = new Pawn("wp", "white");
 		chess_board[6][7] = new Pawn("wp", "white");
-		
 	}
 	public String getId() {
 		return "";
@@ -76,6 +75,11 @@ public class Chess {
 	}
 	public boolean isValid(int[] start, int[] destination) {
 		return true;
+	}
+	public boolean isfirstMove() {
+		return true;
+	}
+	public void setPawnFirst(boolean boo) {
 	}
 	
 	public static void printBoard() {

@@ -37,7 +37,7 @@ public class Bishop extends Chess{
 			//moving up right
 			if(start_i>dest_i && start_j<dest_j) {
 				for(int i=start_i-1, j=start_j+1; i>dest_i && j<dest_j; i--, j++) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')){
 						return false;
 					}
 				}
@@ -45,7 +45,7 @@ public class Bishop extends Chess{
 			//moving up left
 			if(start_i>dest_i && start_j>dest_j) {
 				for(int i=start_i-1, j=start_j-1; i>dest_i && j>dest_j; i--, j--) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")) {
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
@@ -53,7 +53,7 @@ public class Bishop extends Chess{
 			//moving down right
 			if(start_i<dest_i && start_j>dest_j) {
 				for(int i=start_i+1, j=start_j-1; i<dest_i && j>dest_j; i++, j--) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')){
 						return false;
 					}
 				}
@@ -61,7 +61,7 @@ public class Bishop extends Chess{
 			//moving down left
 			if(start_i<dest_i && start_j<dest_j) {
 				for(int i=start_i+1, j=start_j+1; i<dest_i && j<dest_j; i++, j++) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')){
 						return false;
 					}
 				}

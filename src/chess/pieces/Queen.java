@@ -21,8 +21,6 @@ public class Queen extends Chess {
 		 * queen cannot jump over their own pieces
 		*/
 		
-		//run through the start and end index and see if any space is occupied by its own piece
-		
 		//start i and j equals start index
 		int start_i = start[0];
 		int start_j = start[1];
@@ -42,14 +40,14 @@ public class Queen extends Chess {
 			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
 			if(start_i < dest_i) {
 				for(int i=start_i+1; i<dest_i; i++) {
-					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+					if((chess_board[i][start_j].getId().charAt(0) != ' ') && (chess_board[i][start_j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
 			}
 			else {
 				for(int i=start_i-1; i>dest_i; i--) {
-					if((chess_board[i][start_j].getId() != "  ") && (chess_board[i][start_j].getId() != "##")) {
+					if((chess_board[i][start_j].getId().charAt(0) != ' ') && (chess_board[i][start_j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
@@ -61,14 +59,14 @@ public class Queen extends Chess {
 			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
 			if(start_j < dest_j) {
 				for(int j=start_j+1; j<dest_j; j++) {
-					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+					if((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
 			}
 			else {
 				for(int j=start_j-1; j>dest_j; j--) {
-					if((chess_board[start_i][j].getId() != "  ") && (chess_board[start_i][j].getId() != "##")) {
+					if((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
@@ -81,7 +79,7 @@ public class Queen extends Chess {
 			//moving up right
 			if(start_i>dest_i && start_j<dest_j) {
 				for(int i=start_i-1, j=start_j+1; i>dest_i && j<dest_j; i--, j++) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')){
 						return false;
 					}
 				}
@@ -89,7 +87,7 @@ public class Queen extends Chess {
 			//moving up left
 			if(start_i>dest_i && start_j>dest_j) {
 				for(int i=start_i-1, j=start_j-1; i>dest_i && j>dest_j; i--, j--) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")) {
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
@@ -97,7 +95,7 @@ public class Queen extends Chess {
 			//moving down right
 			if(start_i<dest_i && start_j>dest_j) {
 				for(int i=start_i+1, j=start_j-1; i<dest_i && j>dest_j; i++, j--) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')){
 						return false;
 					}
 				}
@@ -105,7 +103,7 @@ public class Queen extends Chess {
 			//moving down left
 			if(start_i<dest_i && start_j<dest_j) {
 				for(int i=start_i+1, j=start_j+1; i<dest_i && j<dest_j; i++, j++) {
-					if((chess_board[i][j].getId() != "  ") && (chess_board[i][j].getId() != "##")){
+					if((chess_board[i][j].getId().charAt(0) != ' ') && (chess_board[i][j].getId().charAt(0) != '#')){
 						return false;
 					}
 				}
