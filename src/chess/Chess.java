@@ -21,6 +21,7 @@ public class Chess {
 	
 	public static Chess[][] chess_board = new Chess[8][8];
 	
+	//this method initializes the board
 	public static void initBoard() {
 		chess_board[0][0] = new Rook("bR", "black");
 		chess_board[0][1] = new Knight("bN", "black");
@@ -67,21 +68,27 @@ public class Chess {
 		chess_board[6][6] = new Pawn("wp", "white");
 		chess_board[6][7] = new Pawn("wp", "white");
 	}
+	//this method returns the id of the piece
 	public String getId() {
 		return "";
 	}
+	//this method return the color of the piece
 	public String getColor() {
 		return "";
 	}
+	//this method checks to see if the move is valid for that piece
 	public boolean isValid(int[] start, int[] destination) {
-		return true;
+		return false;
 	}
+	//this method checks to see if it is a pawn's first move
 	public boolean isfirstMove() {
 		return true;
 	}
+	//this method sets the pawn boolean field of first move
 	public void setPawnFirst(boolean boo) {
 	}
 	
+	//this method prints the board
 	public static void printBoard() {
 		for(int i=0; i<chess_board.length; i++) {
 			for(int j=0; j<chess_board[0].length; j++) {
@@ -89,8 +96,21 @@ public class Chess {
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 	
+	//this method updates the board
+	public static void updateBoard(int[] start_indexes, int[] destination_indexes) {
+		chess_board[destination_indexes[0]][destination_indexes[1]] = chess_board[start_indexes[0]][start_indexes[1]];
+		if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+			chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+		}
+		if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+			chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+		}
+	}
+	
+	//this method returns the indexes of the inputed position in the 2d array
 	public static int[] find_indexes(String str) {
 		int[] arr = new int[2];
 		switch(Character.getNumericValue(str.charAt(1))) {
@@ -118,6 +138,8 @@ public class Chess {
 		case 8:
 			arr[0] = 0;
 			break;
+		default:
+			arr[0] = 8;
 		}
 		switch(str.charAt(0)) {
 		case 'a':
@@ -144,11 +166,13 @@ public class Chess {
 		case 'h':
 			arr[1] = 7;
 			break;
+		default:
+			arr[1] = 8;
 		}
 		return arr;
 	}
 	
-	
+	//this method checks to see if the spot is occupied by its own team piece
 	public static boolean occupy(int[] start, int[] destination) {
 		//check to see if destination is occupied by team chess piece
 		if(chess_board[start[0]][start[1]].getId().charAt(0) == chess_board[destination[0]][destination[1]].getId().charAt(0)) {
@@ -164,23 +188,59 @@ public class Chess {
 		printBoard();
 		
 		boolean check = true;
+		int[] start_indexes = new int[2];
+		int[] destination_indexes = new int[2];
+		boolean draw = false;
 		while(true) {
 			//white's turn
 			if(check == true) {
 				System.out.print("White's move: ");
 				Scanner scan = new Scanner(System.in);
 				String move = scan.nextLine();
+				//checking to see if player resigned
+				if(move.equals("resign")) {
+					System.out.println("Black wins");
+					return;
+				}
+				//check to see if game ends in draw
+				if(draw == true && move.equals("draw")) {
+					return;
+				}
+				//reset the draw boolean
+				draw = false;
 				String start = move.substring(0,2);
-				String destination = move.substring(3);
-				int[] start_indexes = find_indexes(start);
-				int[] destination_indexes = find_indexes(destination);
+				String destination = move.substring(3,5);
+				start_indexes = find_indexes(start);
+				destination_indexes = find_indexes(destination);
+				//checking to see if player is making a move on a white piece
+				if(chess_board[start_indexes[0]][start_indexes[1]].getId().charAt(0) != 'w') {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
+				//checking if indexes are out of bounds
+				if(start_indexes[0] == 8 || start_indexes[1] == 8 || destination_indexes[0] == 8 || destination_indexes[1] == 8) {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
 				boolean occupy = occupy(start_indexes,destination_indexes);
 				//checks if the move is valid for the piece
 				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true) {
 					System.out.println("Illegal move, try again");
 				}
-				//if valid move, set to black's move
+				//if valid move, update board and set to black's move
 				else{
+					//checking to see if user wants to request a draw
+					if(move.length() > 5) {
+						if(draw == false && move.substring(6).equals("draw?")) {
+							draw = true;
+						}
+					}
+					//update the board
+					updateBoard(start_indexes, destination_indexes);
+					//print the board
+					System.out.println();
+					printBoard();
+					//setting to black's turn
 					check = false;
 				}
 			}
@@ -189,19 +249,50 @@ public class Chess {
 				System.out.print("Black's move: ");
 				Scanner scan = new Scanner(System.in);
 				String move = scan.nextLine();
+				//checking to see if player resigned
+				if(move.equals("resign")) {
+					System.out.println("Black wins");
+					return;
+				}
+				//check to see if game ends in draw
+				if(draw == true && move.equals("draw")) {
+					return;
+				}
+				//reset the draw boolean
+				draw = false;
 				String start = move.substring(0,2);
 				String destination = move.substring(3);
-				int[] start_indexes = new int[2];
 				start_indexes = find_indexes(start);
-				int[] destination_indexes = new int[2];
 				destination_indexes = find_indexes(destination);
+				//checking to see if player is making a move on a white piece
+				if(chess_board[start_indexes[0]][start_indexes[1]].getId().charAt(0) != 'b') {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
+				//checking if indexes are out of bounds
+				if(start_indexes[0] == 8 || start_indexes[1] == 8 || destination_indexes[0] == 8 || destination_indexes[1] == 8) {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
 				boolean occupy = occupy(start_indexes,destination_indexes);
 				//checks if the move is valid for the piece
 				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true) {
 					System.out.println("Illegal move, try again");
 				}
-				//if valid move, set to white's move
+				//if valid move, update board and set to white's move
 				else{
+					//check to see if user wants to request a draw
+					if(move.length()> 5) {
+						if(draw == false && move.substring(6).equals("draw?") ) {
+							draw = true;
+						}
+					}
+					//update the board
+					updateBoard(start_indexes, destination_indexes);
+					//print board
+					System.out.println();
+					printBoard();
+					//setting to white's turn
 					check = true;
 				}
 			}
