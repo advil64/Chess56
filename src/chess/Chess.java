@@ -67,6 +67,7 @@ public class Chess {
 		chess_board[6][5] = new Pawn("wp", "white");
 		chess_board[6][6] = new Pawn("wp", "white");
 		chess_board[6][7] = new Pawn("wp", "white");
+		
 	}
 	//this method returns the id of the piece
 	public String getId() {
@@ -87,21 +88,215 @@ public class Chess {
 	//this method sets the pawn boolean field of first move
 	public void setPawnFirst(boolean boo) {
 	}
+	//this method sets the pawn's boolean two-step field to true to indicate it made a 2-step move
+	public void setTwoStep(boolean b) {	
+	}
+	//this method gets the pawn's boolean to see if it made a 2-step move
+	public boolean getTwoStep() {
+		return false;
+	}
+	//this method returns the count of the pawn that is out of original place
+	public int getCount() {
+		return 0;
+	}
+	//this method set's the count of the pawn out of original position
+	public void setCount(int i) {
+	}
 	
 	//this method prints the board
 	public static void printBoard() {
+		int[] arr = {8,7,6,5,4,3,2,1};
+		char[] arr2 = {'a','b','c','d','e','f','g','h'};
 		for(int i=0; i<chess_board.length; i++) {
 			for(int j=0; j<chess_board[0].length; j++) {
 				System.out.print(chess_board[i][j].getId() + " ");
 			}
+			System.out.print(arr[i]);
 			System.out.println();
 		}
+		System.out.print(" "+ arr2[0]);
+		for(int i=1; i<arr.length; i++) {
+			System.out.print("  " + arr2[i]);
+		}
 		System.out.println();
+		System.out.println();
+		
 	}
 	
 	//this method updates the board
-	public static void updateBoard(int[] start_indexes, int[] destination_indexes) {
+	public static void updateBoard(int[] start_indexes, int[] destination_indexes, String move) {
+		//check to see if a promotion is occurring
+		//check to see if pawn reaches the end index
+		//if the pawn reaches the end index automatically set pawn to queen if promotion type is not specified
+		if(move.length() == 5 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("wp") && destination_indexes[0] == 0) {
+			//set pawn destination to queen
+			chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("wQ", "white");
+			//set original spot to empty
+			if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+			}
+			if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+			}
+			return;
+		}
+		//pawn reaches end and promotion type is specified
+		if(move.length() == 7 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("wp") && destination_indexes[0] == 0) {
+			switch(move.charAt((6))) {
+				case 'R':
+					//set pawn destination to rook
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Rook("wR", "white");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				case 'N':
+					//set pawn destination to knight
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Knight("wN", "white");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				case 'B':
+					//set pawn destination to bishop
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Bishop("wB", "white");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				case 'Q':
+					//set pawn destination to queen
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("wQ", "white");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				default:
+					//set pawn destination to queen
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("wQ", "white");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+			}
+			return;
+		}
+		
+		//regular updating the board (non-promotion)
 		chess_board[destination_indexes[0]][destination_indexes[1]] = chess_board[start_indexes[0]][start_indexes[1]];
+		//every time we update the board we must increase the count of the pawn to indicate the time out of it's original place
+		for(int i=0; i<8; i++) {
+			for(int j=0; j<8; j++) {
+				if(chess_board[i][j].getId().equals("wp") && (i != 6)) {
+					chess_board[i][j].setCount(chess_board[i][j].getCount()+1);
+				}
+				if(chess_board[i][j].getId().equals("bp") && (i != 1)) {
+					chess_board[i][j].setCount(chess_board[i][j].getCount()+1);
+				}
+			}
+		}
+		//check to see if we are performing an en passant
+		int start_i = start_indexes[0];
+		int start_j = start_indexes[1];
+		int dest_i = destination_indexes[0];
+		int dest_j = destination_indexes[1];
+		//white is moving up left
+		if(chess_board[start_i][start_j].getId().equals("wp") && (dest_i == start_i-1 && dest_j == start_j-1) 
+				&& (chess_board[start_i][start_j-1].getId().equals("bp"))) {
+			//remove the black piece and replace with empty and make start index empty
+			if((start_i%2==0 && start_j-1%2==0) || (start_i%2!=0 && start_j-1%2!=0)) {
+				chess_board[start_i][start_j-1] = new Empty("  ", "white");
+			}
+			if((start_i%2==0 && start_j-1%2!=0) || (start_i%2!=0 && start_j-1%2==0)) {
+				chess_board[start_i][start_j-1] = new Empty("  ", "white");
+			}
+			//set start index to blank
+			if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+			}
+			if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+			}
+			return;
+		}
+		//white is moving up right
+		if(chess_board[start_i][start_j].getId().equals("wp") && (dest_i == start_i-1 && dest_j == start_j+1) 
+				&& (chess_board[start_i][start_j+1].getId().equals("bp"))) {
+			//remove the black piece and replace with empty and make start index empty
+			if((start_i%2==0 && start_j+1%2==0) || (start_i%2!=0 && start_j+1%2!=0)) {
+				chess_board[start_i][start_j+1] = new Empty("  ", "white");
+			}
+			if((start_i%2==0 && start_j+1%2!=0) || (start_i%2!=0 && start_j+1%2==0)) {
+				chess_board[start_i][start_j+1] = new Empty("##", "black");
+			}
+			//set start index to blank
+			if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+			}
+			if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+			}
+			return;
+		}
+		//black is moving down right
+		if(chess_board[start_i][start_j].getId().equals("bp") && (dest_i == start_i+1 && dest_j == start_j+1) 
+				&& (chess_board[start_i][start_j+1].getId().equals("wp"))) {
+			//remove the white piece and replace with empty and make start index empty
+			if((start_i%2==0 && start_j+1%2==0) || (start_i%2!=0 && start_j+1%2!=0)) {
+				chess_board[start_i][start_j+1] = new Empty("  ", "white");
+			}
+			if((start_i%2==0 && start_j+1%2!=0) || (start_i%2!=0 && start_j+1%2==0)) {
+				chess_board[start_i][start_j+1] = new Empty("##", "black");
+			}
+			//set start index to blank
+			if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+			}
+			if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+			}
+			return;
+		}
+		//black is moving down left
+		if(chess_board[start_i][start_j].getId().equals("bp") && (dest_i == start_i+1 && dest_j == start_j-1) 
+				&& (chess_board[start_i][start_j-1].getId().equals("wp"))) {
+			System.out.println("Hello");
+			//remove the white piece and replace with empty and make start index empty
+			if((start_i%2==0 && start_j-1%2==0) || (start_i%2!=0 && start_j-1%2!=0)) {
+				chess_board[start_i][start_j-1] = new Empty("  ", "white");
+			}
+			if((start_i%2==0 && start_j-1%2!=0) || (start_i%2!=0 && start_j-1%2==0)) {
+				chess_board[start_i][start_j-1] = new Empty("##", "black");
+			}
+			//set start index to blank
+			if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+			}
+			if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+			}
+			return;
+		}
 		if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
 			chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
 		}
@@ -229,14 +424,14 @@ public class Chess {
 				}
 				//if valid move, update board and set to black's move
 				else{
-					//checking to see if user wants to request a draw
 					if(move.length() > 5) {
+						//checking to see if user wants to request a draw
 						if(draw == false && move.substring(6).equals("draw?")) {
 							draw = true;
 						}
 					}
 					//update the board
-					updateBoard(start_indexes, destination_indexes);
+					updateBoard(start_indexes, destination_indexes,move);
 					//print the board
 					System.out.println();
 					printBoard();
@@ -251,7 +446,7 @@ public class Chess {
 				String move = scan.nextLine();
 				//checking to see if player resigned
 				if(move.equals("resign")) {
-					System.out.println("Black wins");
+					System.out.println("White wins");
 					return;
 				}
 				//check to see if game ends in draw
@@ -288,7 +483,7 @@ public class Chess {
 						}
 					}
 					//update the board
-					updateBoard(start_indexes, destination_indexes);
+					updateBoard(start_indexes, destination_indexes, move);
 					//print board
 					System.out.println();
 					printBoard();
