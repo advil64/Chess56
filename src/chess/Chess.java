@@ -331,7 +331,30 @@ public class Chess {
 			}
 		}
 		//check if either of the kings are currently in check
-		if(black_king.isCheck(bpos[0], bpos[1]) || white_king.isCheck(wpos[0], wpos[1])){
+		if(black_king.isCheck(bpos[0], bpos[1])){
+			System.out.println("Check");
+			int[][] options = {new int[]{-1,1}, new int[]{0,1}, new int[]{1,1}, new int[]{-1,0}, new int[]{1,0}, new int[]{-1,-1}, new int[]{0,-1}, new int[]{1,-1}};
+			//try to make all possible moves
+			for (int[] i : options){
+				if(black_king.isValid(bpos, new int[]{bpos[0]+i[0], bpos[1]+i[1]}) && !black_king.occupy(bpos, new int[]{bpos[0]+i[0], bpos[1]+i[1]})){
+					return false;
+				}
+			}
+			System.out.println("Checkmate");
+			System.out.println("White wins");
+			return true;
+
+		} else if(white_king.isCheck(wpos[0], wpos[1])){
+			System.out.println("Check");
+			int[][] options = {new int[]{-1,1}, new int[]{0,1}, new int[]{1,1}, new int[]{-1,0}, new int[]{1,0}, new int[]{-1,-1}, new int[]{0,-1}, new int[]{1,-1}};
+			//try to make all possible moves
+			for (int[] i : options){
+				if(black_king.isValid(bpos, new int[]{bpos[0]+i[0], bpos[1]+i[1]}) && !black_king.occupy(bpos, new int[]{bpos[0]+i[0], bpos[1]+i[1]})){
+					return false;
+				}
+			}
+			System.out.println("Checkmate");
+			System.out.println("Black wins");
 			return true;
 		}
 		return false;
@@ -523,10 +546,11 @@ public class Chess {
 					check = true;
 				}
 			}
-			//check for a check
 			if(check()){
-				System.out.println("Check");
+				//this is a checkmate
+				break;
 			}
+
 		}
 
 	}
