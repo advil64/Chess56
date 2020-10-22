@@ -494,6 +494,11 @@ public class Chess {
 					check = false;
 				}
 			}
+			//check in between turns
+			if(check()){
+				//this is a checkmate
+				break;
+			}
 			//black's turn
 			if(check == false) {
 				System.out.print("Black's move: ");
