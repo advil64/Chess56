@@ -50,7 +50,26 @@ public class King extends Chess{
 				|| (dest_j == (start_j+1) && dest_i == (start_i-1)) || (dest_j == (start_j-1) && dest_i == (start_i-1))) {
 			return true;
 		}
+
+		//now check if the king is moving into a check position, this is also illegal
+		if(!isCheck(dest_i, dest_j)){
+			return true;
+		}
 		
+		return false;
+	}
+
+	private boolean isCheck(int x, int y) {
+		//basically loop through the array and check if any other piece can move there
+		Chess temp;
+		for(int i = 0; i < chess_board.length; i++){
+			for(int j = 0; j < chess_board[0].length; j++){
+				temp = chess_board[i][j];
+				if(temp.isValid(new int[]{i,j}, new int[]{x,y})){
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 }
