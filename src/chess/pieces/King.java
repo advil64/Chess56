@@ -59,13 +59,14 @@ public class King extends Chess{
 		return false;
 	}
 
-	private boolean isCheck(int x, int y) {
+
+	public boolean isCheck(int x, int y) {
 		//basically loop through the array and check if any other piece can move there
 		Chess temp;
 		for(int i = 0; i < chess_board.length; i++){
 			for(int j = 0; j < chess_board[0].length; j++){
 				temp = chess_board[i][j];
-				if(temp.isValid(new int[]{i,j}, new int[]{x,y})){
+				if(temp.getId().charAt(1) != 'K' && !temp.occupy(new int[]{i,j}, new int[]{x,y}) && temp.isValid(new int[]{i,j}, new int[]{x,y})){
 					return true;
 				}
 			}

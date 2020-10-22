@@ -102,6 +102,10 @@ public class Chess {
 	//this method set's the count of the pawn out of original position
 	public void setCount(int i) {
 	}
+	//only used in king class
+	public boolean isCheck(int x, int y) {
+		return false;
+	}
 	
 	//this method prints the board
 	public static void printBoard() {
@@ -304,7 +308,35 @@ public class Chess {
 			chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
 		}
 	}
-	
+
+	//traverses the board to check if the board is in a check state
+	private static boolean check() {
+		//first find the king
+		Chess temp;
+		Chess black_king = chess_board[0][4];
+		int[] bpos = new int[]{0,4};
+		Chess white_king = chess_board[7][4];
+		int[] wpos = new int[]{7,4};
+		for(int i = 0; i < chess_board.length; i++){
+			for(int j = 0; j < chess_board[0].length; j++){
+				temp = chess_board[i][j];
+				if(temp.getId().equals("bK")){
+					black_king = temp;
+					bpos = new int[]{i,j};
+				}
+				if(temp.getId().equals("wK")){
+					white_king = temp;
+					wpos = new int[]{i,j};
+				}
+			}
+		}
+		//check if either of the kings are currently in check
+		if(black_king.isCheck(bpos[0], bpos[1]) || white_king.isCheck(wpos[0], wpos[1])){
+			return true;
+		}
+		return false;
+	}
+
 	//this method returns the indexes of the inputed position in the 2d array
 	public static int[] find_indexes(String str) {
 		int[] arr = new int[2];
@@ -490,6 +522,10 @@ public class Chess {
 					//setting to white's turn
 					check = true;
 				}
+			}
+			//check for a check
+			if(check()){
+				System.out.println("Check");
 			}
 		}
 
