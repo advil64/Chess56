@@ -5,16 +5,24 @@ import chess.Chess;
 public class King extends Chess{
 	String id = "";
 	String color = "";
+	boolean moved = false;
 	
-	public King(String id, String color) {
+	public King(String id, String color, boolean moved) {
 		this.id = id;
 		this.color = color;
+		this.moved = moved;
 	}
 	public String getId() {
 		return this.id;
 	}
 	public String getColor() {
 		return this.color;
+	}
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
+	public boolean getMoved() {
+		return this.moved;
 	}
 	
 	//method to check if move is valid
@@ -51,7 +59,6 @@ public class King extends Chess{
 				|| (dest_j == (start_j+1) && dest_i == (start_i-1)) || (dest_j == (start_j-1) && dest_i == (start_i-1))) {
 			isValid = true;
 		}
-
 		//now check if the king is moving into a check position, this is also illegal
 		if(isValid && !isCheck(dest_i, dest_j)){
 			return true;

@@ -23,14 +23,14 @@ public class Chess {
 	
 	//this method initializes the board
 	public static void initBoard() {
-		chess_board[0][0] = new Rook("bR", "black");
+		chess_board[0][0] = new Rook("bR", "black", false);
 		chess_board[0][1] = new Knight("bN", "black");
 		chess_board[0][2] = new Bishop("bB", "black");
 		chess_board[0][3] = new Queen("bQ", "black");
-		chess_board[0][4] = new King("bK", "black");
+		chess_board[0][4] = new King("bK", "black", false);
 		chess_board[0][5] = new Bishop("bB", "black");
 		chess_board[0][6] = new Knight("bN", "black");
-		chess_board[0][7] = new Rook("bR", "black");
+		chess_board[0][7] = new Rook("bR", "black", false);
 		chess_board[1][0] = new Pawn("bp", "black");
 		chess_board[1][1] = new Pawn("bp", "black");
 		chess_board[1][2] = new Pawn("bp", "black");
@@ -51,14 +51,14 @@ public class Chess {
 			}
 		}
 		
-		chess_board[7][0] = new Rook("wR", "white");
+		chess_board[7][0] = new Rook("wR", "white", false);
 		chess_board[7][1] = new Knight("wN", "white");
 		chess_board[7][2] = new Bishop("wB", "white");
 		chess_board[7][3] = new Queen("wQ", "white");
-		chess_board[7][4] = new King("wK", "white");
+		chess_board[7][4] = new King("wK", "white", false);
 		chess_board[7][5] = new Bishop("wB", "white");
 		chess_board[7][6] = new Knight("wN", "white");
-		chess_board[7][7] = new Rook("wR", "white");
+		chess_board[7][7] = new Rook("wR", "white", false);
 		chess_board[6][0] = new Pawn("wp", "white");
 		chess_board[6][1] = new Pawn("wp", "white");
 		chess_board[6][2] = new Pawn("wp", "white");
@@ -106,6 +106,13 @@ public class Chess {
 	public boolean isCheck(int x, int y) {
 		return false;
 	}
+	//used in king class to set the moved boolean
+	public void setMoved(boolean moved) {
+	}
+	//used in the king class to get the moved boolean
+	public boolean getMoved() {
+		return false;
+	}
 	
 	//this method prints the board
 	public static void printBoard() {
@@ -132,6 +139,7 @@ public class Chess {
 		//check to see if a promotion is occurring
 		//check to see if pawn reaches the end index
 		//if the pawn reaches the end index automatically set pawn to queen if promotion type is not specified
+		//white pawn
 		if(move.length() == 5 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("wp") && destination_indexes[0] == 0) {
 			//set pawn destination to queen
 			chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("wQ", "white");
@@ -149,7 +157,7 @@ public class Chess {
 			switch(move.charAt((6))) {
 				case 'R':
 					//set pawn destination to rook
-					chess_board[destination_indexes[0]][destination_indexes[1]] = new Rook("wR", "white");
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Rook("wR", "white", true);
 					//set original spot to empty
 					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
 						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
@@ -205,9 +213,92 @@ public class Chess {
 			}
 			return;
 		}
+		//black pawn promotion
+		if(move.length() == 5 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("bp") && destination_indexes[0] == 7) {
+			//set pawn destination to queen
+			chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("bQ", "white");
+			//set original spot to empty
+			if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+			}
+			if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+				chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+			}
+			return;
+		}
+		//pawn reaches end and promotion type is specified
+		if(move.length() == 7 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("bp") && destination_indexes[0] == 7) {
+			switch(move.charAt((6))) {
+				case 'R':
+					//set pawn destination to rook
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Rook("bR", "black", true);
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				case 'N':
+					//set pawn destination to knight
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Knight("bN", "black");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				case 'B':
+					//set pawn destination to bishop
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Bishop("bB", "black");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				case 'Q':
+					//set pawn destination to queen
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("bQ", "black");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+				default:
+					//set pawn destination to queen
+					chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("bQ", "black");
+					//set original spot to empty
+					if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
+					}
+					if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
+						chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
+					}
+					break;
+			}
+			return;
+		}
 		
 		//regular updating the board (non-promotion)
 		chess_board[destination_indexes[0]][destination_indexes[1]] = chess_board[start_indexes[0]][start_indexes[1]];
+		
+		//if you're moving a king or rook make sure their moved boolean is set to true to indicate they moved out of their original position
+		//used for castling
+		if(chess_board[destination_indexes[0]][destination_indexes[1]].getId().charAt(1) == 'K' 
+				|| chess_board[destination_indexes[0]][destination_indexes[1]].getId().charAt(1) == 'R') {
+			chess_board[destination_indexes[0]][destination_indexes[1]].setMoved(true);
+		}
+		
+			
 		//every time we update the board we must increase the count of the pawn to indicate the time out of it's original place
 		for(int i=0; i<8; i++) {
 			for(int j=0; j<8; j++) {
@@ -284,7 +375,6 @@ public class Chess {
 		//black is moving down left
 		if(chess_board[start_i][start_j].getId().equals("bp") && (dest_i == start_i+1 && dest_j == start_j-1) 
 				&& (chess_board[start_i][start_j-1].getId().equals("wp"))) {
-			System.out.println("Hello");
 			//remove the white piece and replace with empty and make start index empty
 			if((start_i%2==0 && start_j-1%2==0) || (start_i%2!=0 && start_j-1%2!=0)) {
 				chess_board[start_i][start_j-1] = new Empty("  ", "white");
@@ -301,6 +391,7 @@ public class Chess {
 			}
 			return;
 		}
+		//non-en passant making start index blank
 		if((start_indexes[0]%2==0 && start_indexes[1]%2==0) || (start_indexes[0]%2!=0 && start_indexes[1]%2!=0)) {
 			chess_board[start_indexes[0]][start_indexes[1]] = new Empty("  ", "white");
 		}
@@ -462,7 +553,7 @@ public class Chess {
 				String destination = move.substring(3,5);
 				start_indexes = find_indexes(start);
 				destination_indexes = find_indexes(destination);
-				//checking to see if player is making a move on a white piece
+				//checking to see if player is making a move from a white piece
 				if(chess_board[start_indexes[0]][start_indexes[1]].getId().charAt(0) != 'w') {
 					System.out.println("Illegal move, try again");
 					continue;
@@ -472,6 +563,73 @@ public class Chess {
 					System.out.println("Illegal move, try again");
 					continue;
 				}
+				
+				/////////////////////////////////     CASTLING      //////////////////////////////////////////////////////////////////
+				if(chess_board[start_indexes[0]][start_indexes[1]].getId().charAt(1) == 'K') {
+					//checking if castling right and king is not in check (white)
+					if(start_indexes[0] == 7 && start_indexes[1] == 4 && destination_indexes[0] == 7 && destination_indexes[1] == 6
+							&& chess_board[7][7].getId().equals("wR") && chess_board[7][4].isCheck(start_indexes[0],start_indexes[1]) == false) {
+						//check to see if king and rook did not move
+						if(chess_board[start_indexes[0]][start_indexes[1]].getMoved() == false && chess_board[7][7].getMoved() == false) {
+							//check to see if all positions are empty
+							if((chess_board[7][5].getId().charAt(0) == ' ') && (chess_board[7][6].getId().charAt(0) == '#')) {
+								chess_board[7][5] = chess_board[7][4];
+								chess_board[7][6] = chess_board[7][4];
+								if(chess_board[7][4].isCheck(7,5) == false && chess_board[7][4].isCheck(7,6) == false) {
+									//update the board accordingly
+									chess_board[7][6] = chess_board[7][4];
+									chess_board[7][5] = chess_board[7][7];
+									chess_board[7][4] = new Empty("##", "black");
+									chess_board[7][7] = new Empty("  ", "white");
+									check = false;
+									System.out.println();
+									printBoard();
+									continue;
+								}
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							System.out.println("Illegal move, try again");
+							continue;
+						}
+						System.out.println("Illegal move, try again");
+						continue;
+					}
+					//checking if castling right and king is not in check (white)
+					if(start_indexes[0] == 7 && start_indexes[1] == 4 && destination_indexes[0] == 7 && destination_indexes[1] == 1
+							&& chess_board[7][0].getId().equals("wR") && chess_board[7][4].isCheck(start_indexes[0],start_indexes[1]) == false) {
+						//check to see if king and rook did not move
+						if(chess_board[start_indexes[0]][start_indexes[1]].getMoved() == false && chess_board[7][0].getMoved() == false) {
+							//check to see if all positions are empty
+							if((chess_board[7][3].getId().charAt(0) == ' ') && (chess_board[7][2].getId().charAt(0) == '#') && (chess_board[7][1].getId().charAt(0) == ' ')) {
+								chess_board[7][3] = chess_board[7][4];
+								chess_board[7][2] = chess_board[7][4];
+								chess_board[7][1] = chess_board[7][4];
+								if(chess_board[7][4].isCheck(7,3) == false && chess_board[7][4].isCheck(7,2) == false && chess_board[7][4].isCheck(7,1) == false) {
+									//update the board accordingly
+									chess_board[7][1] = chess_board[7][4];
+									chess_board[7][2] = chess_board[7][0];
+									chess_board[7][4] = new Empty("##", "black");
+									chess_board[7][3] = new Empty("  ", "white");
+									chess_board[7][0] = new Empty("##", "white");
+									check = false;
+									System.out.println();
+									printBoard();
+									continue;
+								}
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							System.out.println("Illegal move, try again");
+							continue;
+						}
+						System.out.println("Illegal move, try again");
+						continue;
+					}
+				}
+			////////////////////////////////     CASTLING      //////////////////////////////////////////////////////////////////
+				
+				
 				boolean occupy = occupy(start_indexes,destination_indexes);
 				//checks if the move is valid for the piece
 				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true) {
@@ -529,6 +687,73 @@ public class Chess {
 					System.out.println("Illegal move, try again");
 					continue;
 				}
+				
+			/////////////////////////////////     CASTLING      //////////////////////////////////////////////////////////////////
+				//checking if castling right and king is not in check (black)
+				if(chess_board[start_indexes[0]][start_indexes[1]].getId().charAt(1) == 'K') {
+					if(start_indexes[0] == 0 && start_indexes[1] == 4 && destination_indexes[0] == 0 && destination_indexes[1] == 6
+							&& chess_board[0][7].getId().equals("bR") && chess_board[0][4].isCheck(start_indexes[0],start_indexes[1]) == false) {
+						//check to see if king and rook did not move
+						if(chess_board[start_indexes[0]][start_indexes[1]].getMoved() == false && chess_board[0][7].getMoved() == false) {
+							//check to see if all positions are empty
+							if((chess_board[0][5].getId().charAt(0) == '#') && (chess_board[0][6].getId().charAt(0) == ' ')) {
+								chess_board[0][5] = chess_board[0][4];
+								chess_board[0][6] = chess_board[0][4];
+								if(chess_board[0][4].isCheck(0,5) == false && chess_board[0][4].isCheck(0,6) == false) {
+									//update the board accordingly
+									chess_board[0][6] = chess_board[0][4];
+									chess_board[0][5] = chess_board[0][7];
+									chess_board[0][4] = new Empty("##", "black");
+									chess_board[0][7] = new Empty("  ", "white");
+									check = true;
+									System.out.println();
+									printBoard();
+									continue;
+								}
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							System.out.println("Illegal move, try again");
+							continue;
+						}
+						System.out.println("Illegal move, try again");
+						continue;
+					}
+					//checking if castling left and king is not in check (black)
+					if(start_indexes[0] == 0 && start_indexes[1] == 4 && destination_indexes[0] == 0 && destination_indexes[1] == 1
+							&& chess_board[0][0].getId().equals("bR") && chess_board[0][4].isCheck(start_indexes[0],start_indexes[1]) == false) {
+						//check to see if king and rook did not move
+						if(chess_board[start_indexes[0]][start_indexes[1]].getMoved() == false && chess_board[0][0].getMoved() == false) {
+							//check to see if all positions are empty
+							if((chess_board[0][3].getId().charAt(0) == '#') && (chess_board[0][2].getId().charAt(0) == ' ') && (chess_board[0][1].getId().charAt(0) == '#')) {
+								chess_board[0][3] = chess_board[0][4];
+								chess_board[0][2] = chess_board[0][4];
+								chess_board[0][1] = chess_board[0][4];
+								if(chess_board[0][4].isCheck(0,3) == false && chess_board[0][4].isCheck(0,2) == false && chess_board[0][4].isCheck(0,1) == false) {
+									//update the board accordingly
+									chess_board[0][1] = chess_board[0][4];
+									chess_board[0][2] = chess_board[0][0];
+									chess_board[0][4] = new Empty("  ", "white");
+									chess_board[0][3] = new Empty("##", "white");
+									chess_board[0][0] = new Empty("  ", "white");
+									check = true;
+									System.out.println();
+									printBoard();
+									continue;
+								}
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							System.out.println("Illegal move, try again");
+							continue;
+						}
+						System.out.println("Illegal move, try again");
+						continue;
+					}
+				}
+				/////////////////////////////////     CASTLING      //////////////////////////////////////////////////////////////////
+
+				
 				boolean occupy = occupy(start_indexes,destination_indexes);
 				//checks if the move is valid for the piece
 				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true) {

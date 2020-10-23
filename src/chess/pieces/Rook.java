@@ -5,13 +5,21 @@ import chess.Chess;
 public class Rook extends Chess{
 	String id = "";
 	String color = "";
+	boolean moved = false;
 	
-	public Rook(String id, String color) {
+	public Rook(String id, String color, boolean moved) {
 		this.id = id;
 		this.color = color;
+		this.moved = moved;
 	}
 	public String getId() {
 		return this.id;
+	}
+	public void setMoved(boolean moved) {
+		this.moved = moved;
+	}
+	public boolean getMoved() {
+		return this.moved;
 	}
 	//method to check if move is valid
 	public boolean isValid(int[] start, int[] dest) {
