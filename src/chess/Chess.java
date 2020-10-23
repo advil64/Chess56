@@ -349,7 +349,7 @@ public class Chess {
 			int[][] options = {new int[]{-1,1}, new int[]{0,1}, new int[]{1,1}, new int[]{-1,0}, new int[]{1,0}, new int[]{-1,-1}, new int[]{0,-1}, new int[]{1,-1}};
 			//try to make all possible moves
 			for (int[] i : options){
-				if(black_king.isValid(bpos, new int[]{bpos[0]+i[0], bpos[1]+i[1]}) && !black_king.occupy(bpos, new int[]{bpos[0]+i[0], bpos[1]+i[1]})){
+				if(white_king.isValid(wpos, new int[]{wpos[0]+i[0], wpos[1]+i[1]}) && !white_king.occupy(wpos, new int[]{wpos[0]+i[0], wpos[1]+i[1]})){
 					return false;
 				}
 			}

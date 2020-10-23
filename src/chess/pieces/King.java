@@ -27,7 +27,8 @@ public class King extends Chess{
 		int start_j = start[1];
 		//dest_i represents destination row, dest_j represents destination col
 		int dest_i = dest[0];
-		int dest_j = dest[1];		
+		int dest_j = dest[1];
+		boolean isValid = false;
 		
 		//check if move goes out of bounds
 		if(dest_i > 7 || dest_i < 0) {
@@ -39,20 +40,20 @@ public class King extends Chess{
 		
 		//row
 		if(dest_i == (start_i+1) && dest_j == start_j || ((dest_i == (start_i-1) && dest_j == start_j))) {
-			return true;
+			isValid = true;
 		}
 		//column
 		if(dest_j == (start_j+1) && dest_i == start_i || (dest_j == (start_j-1) && dest_i == start_i)) {
-			return true;
+			isValid = true;
 		}
 		//diagonal
 		if((dest_j == (start_j+1) && dest_i == (start_i+1)) || ((dest_j == (start_j-1) && dest_i == (start_i+1))) 
 				|| (dest_j == (start_j+1) && dest_i == (start_i-1)) || (dest_j == (start_j-1) && dest_i == (start_i-1))) {
-			return true;
+			isValid = true;
 		}
 
 		//now check if the king is moving into a check position, this is also illegal
-		if(!isCheck(dest_i, dest_j)){
+		if(isValid && !isCheck(dest_i, dest_j)){
 			return true;
 		}
 		
