@@ -587,7 +587,7 @@ public class Chess {
 	 * This method checks to see if a destination is occupied by a team piece
 	 * true = occupied by a team piece, false = not occupied by a team piece 
 	 * @param start - indexes for the starting position of a piece (0:row, 1:column)
-	 * @param destination - indexes for the starting position of a piece (0:row, 1:column)
+	 * @param destination - indexes for the ending position of a piece (0:row, 1:column)
 	 * @return - boolean to indicate if the destination is occupied by a team piece
 	 */
 	//this method checks to see if the spot is occupied by its own team piece

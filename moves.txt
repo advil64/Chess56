@@ -1,7 +1,10 @@
-White's move: f2 f4
+f2 f4
+e7 e5
+g2 g4
+d8 h4
 
-Black's move: e7 e5
+-----
 
-White's move: g2 g4
-
-Black's move: d8 h4
+e2 e4
+a7 a6
+e1 e2

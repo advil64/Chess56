@@ -122,7 +122,7 @@ public class King extends Chess{
 		for(int i = 0; i < chess_board.length; i++){
 			for(int j = 0; j < chess_board[0].length; j++){
 				temp = chess_board[i][j];
-				if(temp.getId().charAt(1) != 'K' && temp.isValid(new int[]{i,j}, new int[]{x,y}) && !temp.occupy(new int[]{i,j}, new int[]{x,y}) ){
+				if(temp.getId().charAt(1) != 'K' && temp.isValid(new int[]{i,j}, new int[]{x,y}) && temp.getId().charAt(0) != this.getId().charAt(0)){
 					return true;
 				}
 			}
