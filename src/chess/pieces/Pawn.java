@@ -1,46 +1,124 @@
+/**
+ * 
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
+ */
 package chess.pieces;
 
 import chess.Chess;
-
+/**
+ * This class is used to create a Pawn piece object, it extends the Chess class to inherit and override some methods
+ */
 public class Pawn extends Chess{
+	/**
+	 * This field is to used identify the Pawn piece on the chess board
+	 * @field id - value of id
+	 */
 	String id = "";
+	
+	/**
+	 * This field is used to identify the color of the Pawn piece
+	 * @field color - value of color
+	 */
 	String color = "";
-	boolean first = true; //boolean used to indicate if it is pawn's first move
-	boolean two_step = false; //boolean used to indicate if pawn performed a two-step as the first move
+	
+	/**
+	 * This field is used to indicate if it is pawn's first move
+	 * @field first - value of first
+	 */
+	boolean first = true;
+	
+	/**
+	 * This field is used to indicate if the pawn performed a two-step as the first move
+	 * @field two_step - value of two_step
+	 */
+	boolean two_step = false;
+	
+	/**
+	 * This field is used to indicate the number of moves the pawn is out of its original spot
+	 * @field count - value of count
+	 */
 	int count = 0;
 	
-	
+	/**
+	 * This is the constructor used to create a Pawn Object in the Chess class
+	 * @param id - id of the Pawn
+	 * @param color - color of the Pawn
+	 * @return Pawn - Pawn object
+	 */
 	public Pawn(String id, String color) {
 		this.id = id;
 		this.color = color;
 	}
+	/**
+	 * This method returns the id of the Pawn
+	 * @return String - id of the Pawn
+	 */
 	public String getId() {
 		return this.id;
 	}
+	/**
+	 * This method return the color of the Pawn
+	 * @return String - color of the Pawn
+	 */
 	public String getColor() {
 		return this.color;
 	}
+	/**
+	 * This method checks whether a specific pawn piece has made it's first move yet
+	 * true = it is the first move for the pawn, false = not the first move for that pawn
+	 * @return boolean - returns a boolean indicating if the pawn had moved
+	 */
 	public boolean isfirstMove() {
 		return this.first;
 	}
+	/**
+	 * This method sets the pawn's boolean field, "first"  
+	 * @param boo - is the boolean value the pawn will set it's field "first" to
+	 */
 	public void setPawnFirst(boolean boo) {
 		this.first = boo;
 	}
+	/**
+	 * This method sets the pawn's boolean field, "two_step"
+	 * @param b - is the boolean value the pawn will set it's field "two_step" to
+	 */
 	public void setTwoStep(boolean boo) {
 		this.two_step = boo;
 	}
+	/**
+	 * This method gets the pawn's boolean field, "two_step", value to see if the pawn had made 
+	 * a 2-step move as it's first move
+	 * true = performed a 2-step as initial move, false = did not perform the 2-step as it's first move or has not moved yet 
+	 * @return boolean - returns the value of the two_step boolean
+	 */
 	public boolean getTwoStep() {
 		return this.two_step;
 	}
+	/**
+	 * This method gets the count of moves that a pawn is out of its original space, which is the count field
+	 * This field is used to check if an en passant can occur
+	 * @return int - the number of moves in which the a pawn has been out of its original place
+	 */
 	public int getCount() {
 		return this.count;
 	}
+	/**
+	 * This method sets the count field of a pawn
+	 * @param i - takes in an int of which we want to set the pawn's field count as
+	 */
 	public void setCount(int i) {
 		this.count = i;
 	}
 	
-	//method to check if move is valid
-		public boolean isValid(int[] start, int[] dest) {
+	/**
+	 * This method return a boolean indicating whether the move made is valid for a Pawn piece
+	 * @param start - int array holding starting indexes (0:row, 1:col)
+	 * @param dest - int array holding destination indexes (0:row, 1:col)
+	 * @return boolean - value of whether the Pawn can make the move
+	 */
+	public boolean isValid(int[] start, int[] dest) {
 		/*
 		 * pawn can only move up one space, except in the beginning where it can move up 2 spaces
 		 * pawn can move up diagonally if opponent piece is there or performing an en passant

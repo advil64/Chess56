@@ -1,20 +1,52 @@
+/**
+ * 
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
+ */
 package chess.pieces;
 
 import chess.Chess;
-
+/**
+ * This class is used to create a Queen piece object, it extends the Chess class to inherit and override some methods
+ */
 public class Queen extends Chess {
+	/**
+	 * This field is to used identify the Queen piece on the chess board
+	 * @field id - value of id
+	 */
 	String id = "";
+	
+	/**
+	 * This field is used to identify the color of the Queen piece
+	 * @field color - value of color
+	 */
 	String color = "";
 	
+	/**
+	 * This is the constructor used to create a Queen Object in the Chess class
+	 * @param id - id of the Queen
+	 * @param color - color of the Queen
+	 * @return Queen - Queen object
+	 */
 	public Queen(String id, String color) {
 		this.id = id;
 		this.color = color;
 	}
+	/**
+	 * This method returns the id of the Queen
+	 * @return String - id of the Queen
+	 */
 	public String getId() {
 		return this.id;
 	}
 	
-	//method to check if move is valid
+	/**
+	 * This method return a boolean indicating whether the move made is valid for a Queen piece
+	 * @param start - int array holding starting indexes (0:row, 1:col)
+	 * @param dest - int array holding destination indexes (0:row, 1:col)
+	 * @return boolean - value of whether the Queen can make the move
+	 */
 	public boolean isValid(int[] start, int[] dest) {
 		/*
 		 * queen can move any number of squares in a straight line either vertically, horizontally or diagonally 

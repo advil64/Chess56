@@ -1,19 +1,51 @@
+/**
+ * 
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
+ */
 package chess.pieces;
 
 import chess.Chess;
-
+/**
+ * This class is used to create a Knight piece object, it extends the Chess class to inherit and override some methods
+ */
 public class Knight extends Chess {
+	/**
+	 * This field is to used identify the Knight piece on the chess board
+	 * @field id - value of id
+	 */
+	
 	String id = "";
+	/**
+	 * This field is used to identify the color of the Knight piece
+	 * @field color - value of color
+	 */
 	String color = "";
 	
+	/**
+	 * This is the constructor used to create a Knight Object in the Chess class
+	 * @param id - id of the Knight
+	 * @param color - color of the Knight
+	 * @return Bishop - Knight object
+	 */
 	public Knight(String id, String color) {
 		this.id = id;
 		this.color = color;
 	}
+	/**
+	 * This method returns the id of the Knight
+	 * @return String - id of the Knight
+	 */
 	public String getId() {
 		return this.id;
 	}
-	//method to check if move is valid
+	/**
+	 * This method return a boolean indicating whether the move made is valid for a Knight piece
+	 * @param start - int array holding starting indexes (0:row, 1:col)
+	 * @param dest - int array holding destination indexes (0:row, 1:col)
+	 * @return boolean - value of whether the Knight can make the move
+	 */
 	public boolean isValid(int[] start, int[] dest) {
 		/*knight has special move cases */
 		
