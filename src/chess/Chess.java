@@ -586,6 +586,8 @@ public class Chess {
 									printBoard();
 									continue;
 								}
+								chess_board[7][5] = new Empty("  ", "white");
+								chess_board[7][6] = new Empty("##", "black");
 								System.out.println("Illegal move, try again");
 								continue;
 							}
@@ -617,6 +619,9 @@ public class Chess {
 									printBoard();
 									continue;
 								}
+								chess_board[7][3] = new Empty("  ", "white");
+								chess_board[7][2] = new Empty("##", "black");
+								chess_board[7][1] = new Empty("  ", "white");
 								System.out.println("Illegal move, try again");
 								continue;
 							}
@@ -710,6 +715,8 @@ public class Chess {
 									printBoard();
 									continue;
 								}
+								chess_board[0][5] = new Empty("##", "black");
+								chess_board[0][6] = new Empty("  ", "white");
 								System.out.println("Illegal move, try again");
 								continue;
 							}
@@ -741,6 +748,9 @@ public class Chess {
 									printBoard();
 									continue;
 								}
+								chess_board[0][3] = new Empty("##", "black");
+								chess_board[0][2] = new Empty("  ", "white");
+								chess_board[0][1] = new Empty("##", "black");
 								System.out.println("Illegal move, try again");
 								continue;
 							}
