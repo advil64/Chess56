@@ -1,3 +1,9 @@
+/**
+ * 
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
+ */
 package chess;
 
 import java.util.Scanner;
@@ -11,17 +17,20 @@ import chess.pieces.Queen;
 import chess.pieces.Rook;
 
 /**
- * 
- * @author Advith Chegu
- * @author Banty Patel
- *
+ * This is the main class named Chess which is used to run the main program
  */
-
 public class Chess {
 	
+	/**
+	 * @field chess_board - 2D 8x8 Object array of type Chess
+	 * This field is initializing the size of the chess board to be of object type Chess which is an 8x8 matrix
+	 */
 	public static Chess[][] chess_board = new Chess[8][8];
 	
-	//this method initializes the board
+	/**
+	 * This method is called to initialize the board in the beginning of the program by placing all chess pieces in their correct original position
+	 * in the chess_board 2D object array we created earlier
+	 */
 	public static void initBoard() {
 		chess_board[0][0] = new Rook("bR", "black", false);
 		chess_board[0][1] = new Knight("bN", "black");
@@ -69,52 +78,101 @@ public class Chess {
 		chess_board[6][7] = new Pawn("wp", "white");
 		
 	}
-	//this method returns the id of the piece
+	/**
+	 * This method is overridden in the chess pieces' classes to return their ID
+	 * @return String - returns the ID of the chess piece the method is called upon
+	 */
 	public String getId() {
 		return "";
 	}
-	//this method return the color of the piece
+	/**
+	 * This method is overridden in the chess pieces' classes to return their color (white/black)
+	 * @return String - return the color of the chess piece the method is called upon
+	 */
 	public String getColor() {
 		return "";
 	}
-	//this method checks to see if the move is valid for that piece
+	/**
+	 * This method is overridden in the chess pieces' classes to return a boolean to indicate whether the move for that particular piece is valid
+	 * false = invalid, true = valid
+	 * @param start - an integer array that holds the row and column starting position of a chess piece in the 0th and 1st index respectively
+	 * @param destination - an integer array that holds row and columns destination position of a chess piece in the 0th and 1st index respectively
+	 * @return boolean - returns a boolean indicating if the move is valid
+	 */
 	public boolean isValid(int[] start, int[] destination) {
 		return false;
 	}
-	//this method checks to see if it is a pawn's first move
+	/**
+	 * This method is overridden in the pawn class to check whether a specific pawn piece has made it's first move yet
+	 * true = it is the first move for the pawn, false = not the first move for that pawn
+	 * @return boolean - returns a boolean indicating if the pawn had moved
+	 */
 	public boolean isfirstMove() {
 		return true;
 	}
-	//this method sets the pawn boolean field of first move
+	/**
+	 * This method is overridden in the pawn class to set the pawn's boolean field, "first"  
+	 * @param boo - is the boolean value the pawn will set it's field "first" to
+	 */
 	public void setPawnFirst(boolean boo) {
 	}
-	//this method sets the pawn's boolean two-step field to true to indicate it made a 2-step move
+	/**
+	 * This method is overridden in the pawn class to set the pawn's boolean field, "two_step"
+	 * @param b - is the boolean value the pawn will set it's field "two_step" to
+	 */
 	public void setTwoStep(boolean b) {	
 	}
-	//this method gets the pawn's boolean to see if it made a 2-step move
+	/**
+	 * This method is overridden in the pawn class to get the pawn's boolean field, "two_step", value to see if the pawn had made 
+	 * a 2-step move as it's first move
+	 * true = performed a 2-step as initial move, false = did not perform the 2-step as it's first move or has not moved yet 
+	 * @return boolean - returns the value of the two_step boolean
+	 */
 	public boolean getTwoStep() {
 		return false;
 	}
-	//this method returns the count of the pawn that is out of original place
+	/**
+	 * This method is overridden in the pawn class to get the count of moves that a pawn is out of its original space, which is the count field
+	 * This field is used to check if an en passant can occur
+	 * @return int - the number of moves in which the a pawn has been out of its original place
+	 */
 	public int getCount() {
 		return 0;
 	}
-	//this method set's the count of the pawn out of original position
+	/**
+	 * This method is overridden in the pawn class to set the count field of a pawn
+	 * @param i - takes in an int of which we want to set the pawn's field count as
+	 */
 	public void setCount(int i) {
 	}
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return boolean
+	 */
 	//only used in king class
 	public boolean isCheck(int x, int y) {
 		return false;
 	}
-	//used in king class to set the moved boolean
+	/**
+	 * This method is overridden in the King class to set the boolean field moved, which indicates whether the king has moved
+	 * This field is used for the purpose of castling
+	 * @param moved - takes in a boolean to set the field moved in the King's class
+	 */
 	public void setMoved(boolean moved) {
 	}
-	//used in the king class to get the moved boolean
+	/**
+	 * This method is overridden in the King class to return the value of the field moved
+	 * @return boolean - return the value of the King's field move
+	 */
 	public boolean getMoved() {
 		return false;
 	}
 	
-	//this method prints the board
+	/**
+	 * This method is called to print the chess_board
+	 */
 	public static void printBoard() {
 		int[] arr = {8,7,6,5,4,3,2,1};
 		char[] arr2 = {'a','b','c','d','e','f','g','h'};
@@ -134,7 +192,15 @@ public class Chess {
 		
 	}
 	
-	//this method updates the board
+	/**
+	 * This method takes in an array start_indexes which holds the row index and column index starting position at the 0th and 1st index respectively, 
+	 * and takes in an array destination_indexes which holds the row index and column index ending position at the 0th and 1st index respectively, 
+	 * and takes in a boolean used to set the king's and rook's moved boolean field. This method essentially updates the board by moving the pieces to their
+	 * requested position by the player
+	 * @param start_indexes - int array which holds the starting indexes of a chess piece
+	 * @param destination_indexes - int array which holds the destination indexes of a chess piece
+	 * @param move - boolean used to set the moved variable for a King or Rook chess piece
+	 */
 	public static void updateBoard(int[] start_indexes, int[] destination_indexes, String move) {
 		//check to see if a promotion is occurring
 		//check to see if pawn reaches the end index
@@ -450,8 +516,12 @@ public class Chess {
 		}
 		return false;
 	}
-
-	//this method returns the indexes of the inputed position in the 2d array
+	
+	/**
+	 * This method takes in a string (position on board), and returns the position in the 2D array
+	 * @param str - String which holds a position on the board (Ex. "e2")
+	 * @return int array - an array that holds the row and column index at the 0th index and 1st index
+	 */
 	public static int[] find_indexes(String str) {
 		int[] arr = new int[2];
 		switch(Character.getNumericValue(str.charAt(1))) {
@@ -513,6 +583,13 @@ public class Chess {
 		return arr;
 	}
 	
+	/**
+	 * This method checks to see if a destination is occupied by a team piece
+	 * true = occupied by a team piece, false = not occupied by a team piece 
+	 * @param start - indexes for the starting position of a piece (0:row, 1:column)
+	 * @param destination - indexes for the starting position of a piece (0:row, 1:column)
+	 * @return - boolean to indicate if the destination is occupied by a team piece
+	 */
 	//this method checks to see if the spot is occupied by its own team piece
 	public static boolean occupy(int[] start, int[] destination) {
 		//check to see if destination is occupied by team chess piece
@@ -522,7 +599,10 @@ public class Chess {
 		return false;
 	}
 	
-	
+	/**
+	 * This is the main method which is used to run the program
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		initBoard();
