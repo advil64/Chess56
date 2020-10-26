@@ -6,6 +6,11 @@
  */
 package chess;
 
+//TODO get rid of this line after testing
+import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import chess.pieces.Bishop;
@@ -168,6 +173,14 @@ public class Chess {
 	 */
 	public boolean getMoved() {
 		return false;
+	}
+
+	/**
+	 * TODO Write this javadoc
+	 * @return
+	 */
+	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
+		return null;
 	}
 	
 	/**
@@ -467,13 +480,16 @@ public class Chess {
 	}
 
 	//traverses the board to check if the board is in a check state
-	private static boolean check() {
+	private static boolean check(boolean turn) {
 		//first find the king
 		Chess temp;
 		Chess black_king = chess_board[0][4];
 		int[] bpos = new int[]{0,4};
 		Chess white_king = chess_board[7][4];
 		int[] wpos = new int[]{7,4};
+		Chess attacker = null;
+		int[] attackerPos = new int[]{0,0};
+		ArrayList<int[]> validSpots = null;
 		for(int i = 0; i < chess_board.length; i++){
 			for(int j = 0; j < chess_board[0].length; j++){
 				temp = chess_board[i][j];
@@ -497,6 +513,47 @@ public class Chess {
 					return false;
 				}
 			}
+			//now we check if our team mate can come to our rescue, first find the attacker
+			for(int i = 0; i < chess_board.length; i++){
+				for(int j = 0; j < chess_board[0].length; j++){
+					temp = chess_board[i][j];
+					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'w' && temp.isValid(new int[]{i,j}, bpos)){
+						attacker = chess_board[i][j];
+						attackerPos = new int[]{i,j};
+					}
+				}
+			}
+			//get spots between the attacker and black king
+			validSpots = attacker.getSpots(attackerPos, bpos);
+			//loop through the spots returned and check if any teammates can move there
+			if(validSpots != null){
+				for(int[] x : validSpots){
+					for(int i = 0; i < chess_board.length; i++) {
+						for (int j = 0; j < chess_board[0].length; j++) {
+							temp = chess_board[i][j];
+							if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'b' && temp.isValid(new int[]{i,j}, x)){
+								if(temp.getId().charAt(1) == 'P'){
+									temp.setPawnFirst(true);
+								}
+								return false;
+							}
+						}
+					}
+				}
+			}
+			//lastly loop through the board and check if any teammates can take out the attacker
+			for(int i = 0; i < chess_board.length; i++) {
+				for (int j = 0; j < chess_board[0].length; j++) {
+					temp = chess_board[i][j];
+					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'b' && temp.isValid(new int[]{i,j}, attackerPos)){
+						if(temp.getId().charAt(1) == 'P'){
+							temp.setPawnFirst(true);
+						}
+						return false;
+					}
+				}
+			}
+
 			System.out.println("Checkmate");
 			System.out.println("White wins");
 			return true;
@@ -510,6 +567,47 @@ public class Chess {
 					return false;
 				}
 			}
+			//now we check if our team mate can come to our rescue, first find the attacker
+			for(int i = 0; i < chess_board.length; i++){
+				for(int j = 0; j < chess_board[0].length; j++){
+					temp = chess_board[i][j];
+					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'b' && temp.isValid(new int[]{i,j}, wpos)){
+						attacker = chess_board[i][j];
+						attackerPos = new int[]{i,j};
+					}
+				}
+			}
+			//get spots between the attacker and black king
+			validSpots = attacker.getSpots(attackerPos, wpos);
+			//loop through the spots returned and check if any teammates can move there
+			if(validSpots != null){
+				for(int[] x : validSpots){
+					for(int i = 0; i < chess_board.length; i++) {
+						for (int j = 0; j < chess_board[0].length; j++) {
+							temp = chess_board[i][j];
+							if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'w' && temp.isValid(new int[]{i,j}, x)){
+								if(temp.getId().charAt(1) == 'P'){
+									temp.setPawnFirst(true);
+								}
+								return false;
+							}
+						}
+					}
+				}
+			}
+			//lastly loop through the board and check if any teammates can take out the attacker
+			for(int i = 0; i < chess_board.length; i++) {
+				for (int j = 0; j < chess_board[0].length; j++) {
+					temp = chess_board[i][j];
+					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'w' && temp.isValid(new int[]{i,j}, attackerPos)){
+						if(temp.getId().charAt(1) == 'P'){
+							temp.setPawnFirst(true);
+						}
+						return false;
+					}
+				}
+			}
+
 			System.out.println("Checkmate");
 			System.out.println("Black wins");
 			return true;
@@ -603,11 +701,13 @@ public class Chess {
 	 * This is the main method which is used to run the program
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws FileNotFoundException {
 		initBoard();
 		printBoard();
-		
+
+		// TODO get rid of this line after testing
+		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
+		Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
 		int[] destination_indexes = new int[2];
@@ -616,7 +716,7 @@ public class Chess {
 			//white's turn
 			if(check == true) {
 				System.out.print("White's move: ");
-				Scanner scan = new Scanner(System.in);
+				//Scanner scan = new Scanner(System.in); TODO change back after testing
 				String move = scan.nextLine();
 				//checking to see if player resigned
 				if(move.equals("resign")) {
@@ -738,14 +838,13 @@ public class Chess {
 				}
 			}
 			//check in between turns
-			if(check()){
+			if(check(check)){
 				//this is a checkmate
 				break;
 			}
 			//black's turn
 			if(check == false) {
 				System.out.print("Black's move: ");
-				Scanner scan = new Scanner(System.in);
 				String move = scan.nextLine();
 				//checking to see if player resigned
 				if(move.equals("resign")) {
@@ -866,7 +965,7 @@ public class Chess {
 					check = true;
 				}
 			}
-			if(check()){
+			if(check(check)){
 				//this is a checkmate
 				break;
 			}

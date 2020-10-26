@@ -8,6 +8,8 @@ package chess.pieces;
 
 import chess.Chess;
 
+import java.util.ArrayList;
+
 /**
  * This class is used to create a Bishop piece object, it extends the Chess class to inherit and override some methods
  */
@@ -101,5 +103,44 @@ public class Bishop extends Chess{
 			return true;
 		}
 		return false;
+	}
+
+	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
+		ArrayList<int[]> spots = new ArrayList<>();
+		//start_i represents current row, start_j represents current column
+		int start_i = attackerPos[0];
+		int start_j = attackerPos[1];
+		//dest_i represents destination row, dest_j represents destination col
+		int dest_i = kingPos[0];
+		int dest_j = kingPos[1];
+		//movement diagonal
+		if(Math.abs(start_i-dest_i) == Math.abs(start_j-dest_j)) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			//moving up right
+			if(start_i>dest_i && start_j<dest_j) {
+				for(int i=start_i-1, j=start_j+1; i>dest_i && j<dest_j; i--, j++) {
+					spots.add(new int[]{i,j});
+				}
+			}
+			//moving up left
+			if(start_i>dest_i && start_j>dest_j) {
+				for(int i=start_i-1, j=start_j-1; i>dest_i && j>dest_j; i--, j--) {
+					spots.add(new int[]{i,j});
+				}
+			}
+			//moving down right
+			if(start_i<dest_i && start_j>dest_j) {
+				for(int i=start_i+1, j=start_j-1; i<dest_i && j>dest_j; i++, j--) {
+					spots.add(new int[]{i,j});
+				}
+			}
+			//moving down left
+			if(start_i<dest_i && start_j<dest_j) {
+				for(int i=start_i+1, j=start_j+1; i<dest_i && j<dest_j; i++, j++) {
+					spots.add(new int[]{i,j});
+				}
+			}
+		}
+		return spots;
 	}
 }

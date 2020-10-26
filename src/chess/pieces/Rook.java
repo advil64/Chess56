@@ -7,6 +7,9 @@
 package chess.pieces;
 
 import chess.Chess;
+
+import java.util.ArrayList;
+
 /**
  * This class is used to create a Rook piece object, it extends the Chess class to inherit and override some methods
  */
@@ -120,5 +123,44 @@ public class Rook extends Chess{
 			return true;
 		}
 		return false;
+	}
+
+	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
+		ArrayList<int[]> spots = new ArrayList<>();
+		//start_i represents current row, start_j represents current column
+		int start_i = attackerPos[0];
+		int start_j = attackerPos[1];
+		//dest_i represents destination row, dest_j represents destination col
+		int dest_i = kingPos[0];
+		int dest_j = kingPos[1];
+		//movement up/down
+		if(start_j == dest_j && start_i != dest_i) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			if(start_i < dest_i) {
+				for(int i=start_i+1; i<dest_i; i++) {
+					spots.add(new int[]{i,dest_j});
+				}
+			}
+			else {
+				for(int i=start_i-1; i>dest_i; i--) {
+					spots.add(new int[]{i,dest_j});
+				}
+			}
+		}
+		//movement left/right
+		if(start_i == dest_i && start_j != dest_j) {
+			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
+			if(start_j < dest_j) {
+				for(int j=start_j+1; j<dest_j; j++) {
+					spots.add(new int[]{dest_i,j});
+				}
+			}
+			else {
+				for(int j=start_j-1; j>dest_j; j--) {
+					spots.add(new int[]{dest_i,j});
+				}
+			}
+		}
+		return spots;
 	}
 }
