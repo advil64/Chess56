@@ -215,6 +215,11 @@ public class Chess {
 	 * @param move - boolean used to set the moved variable for a King or Rook chess piece
 	 */
 	public static void updateBoard(int[] start_indexes, int[] destination_indexes, String move) {
+		//if we are moving a pawn update the "first" field of the pawn to false indicating it made it's first move
+		if(chess_board[start_indexes[0]][start_indexes[1]].getId().charAt(1) == 'p') {
+			chess_board[start_indexes[0]][start_indexes[1]].setPawnFirst(false);
+		}
+		
 		//check to see if a promotion is occurring
 		//check to see if pawn reaches the end index
 		//if the pawn reaches the end index automatically set pawn to queen if promotion type is not specified

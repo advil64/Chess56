@@ -143,7 +143,7 @@ public class Pawn extends Chess{
 						&& ((chess_board[dest_i][dest_j].getId().charAt(0) == ' ') || (chess_board[dest_i][dest_j].getId().charAt(0) == '#'))) {
 					
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					//set 2-step condition to true indicating it moved 2 spaces in the first move
 					chess_board[start_i][start_j].setTwoStep(true);
 					return true;
@@ -153,14 +153,14 @@ public class Pawn extends Chess{
 						&& ((chess_board[dest_i][dest_j].getId().charAt(0) == ' ') || (chess_board[dest_i][dest_j].getId().charAt(0) == '#'))){
 					
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 				//moving diagonally, occupying an opponent's piece
 				if(((dest_i == start_i-1 && dest_j == start_j-1) || (dest_i == start_i-1 && dest_j == start_j+1))
 						&& chess_board[dest_i][dest_j].getId().charAt(0) == 'b') {
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 			}
@@ -173,7 +173,7 @@ public class Pawn extends Chess{
 						&& ((chess_board[dest_i][dest_j].getId().charAt(0) == ' ') || (chess_board[dest_i][dest_j].getId().charAt(0) == '#'))) {
 					
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					//set 2-step condition to true indicating it moved 2 spaces in the first move
 					chess_board[start_i][start_j].setTwoStep(true);
 					return true;
@@ -183,14 +183,14 @@ public class Pawn extends Chess{
 						&& ((chess_board[dest_i][dest_j].getId().charAt(0) == ' ') || (chess_board[dest_i][dest_j].getId().charAt(0) == '#'))){
 					
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 				//moving diagonally, occupying an opponent's piece
 				if(((dest_i == start_i+1 && dest_j == start_j-1) || (dest_i == start_i+1 && dest_j == start_j+1))
 						&& chess_board[dest_i][dest_j].getId().charAt(0) == 'w') {
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 			}
@@ -206,7 +206,7 @@ public class Pawn extends Chess{
 						&& ((chess_board[dest_i][dest_j].getId().charAt(0) == ' ') || (chess_board[dest_i][dest_j].getId().charAt(0) == '#'))){
 					
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 				//moving diagonally
@@ -214,7 +214,7 @@ public class Pawn extends Chess{
 				if(((dest_i == start_i-1 && dest_j == start_j-1) || (dest_i == start_i-1 && dest_j == start_j+1))
 						&& chess_board[dest_i][dest_j].getId().charAt(0) == 'b') {
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 				//performing an en passant
@@ -239,7 +239,7 @@ public class Pawn extends Chess{
 						&& ((chess_board[dest_i][dest_j].getId().charAt(0) == ' ') || (chess_board[dest_i][dest_j].getId().charAt(0) == '#'))){
 					
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 				//moving diagonally
@@ -247,7 +247,7 @@ public class Pawn extends Chess{
 				if(((dest_i == start_i+1 && dest_j == start_j-1) || (dest_i == start_i+1 && dest_j == start_j+1))
 						&& chess_board[dest_i][dest_j].getId().charAt(0) == 'w') {
 					//set first move condition to false indicating it can't move 2 spaces anymore
-					chess_board[start_i][start_j].setPawnFirst(false);
+					//chess_board[start_i][start_j].setPawnFirst(false);
 					return true;
 				}
 				//performing an en passant
