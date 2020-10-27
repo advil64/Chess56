@@ -11,13 +11,11 @@ import chess.Chess;
 public class Empty extends Chess{
 	/**
 	 * This field is to used identify the Empty spot on the chess board
-	 * @field id - value of id
 	 */
 	String id;
 	
 	/**
 	 * This field is used to identify the color of the Empty spot
-	 * @field color - value of color
 	 */
 	String color;
 	

@@ -11,17 +11,14 @@ import chess.Chess;
 public class King extends Chess{
 	/**
 	 * This field is to used identify the King piece on the chess board
-	 * @field id - value of id
 	 */
 	String id;
 	/**
 	 * This field is used to identify the color of the King piece
-	 * @field color - value of color
 	 */
 	String color;
 	/**
 	 * This field is used to identify whether the king has moved out of its original position
-	 * @field moved - value of moved
 	 */
 	boolean moved;
 	
@@ -112,6 +109,8 @@ public class King extends Chess{
 
 	/**
 	 * This method is used only in the king classes and checks to see if king is in check
+	 * @param x - x coordinate of the king's move
+	 * @param y - y coordinate of the king's move
 	 * @return boolean - true if the king is in check
 	 */
 	public boolean isCheck(int x, int y) {

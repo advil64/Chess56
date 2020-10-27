@@ -24,7 +24,6 @@ import chess.pieces.Rook;
 public class Chess {
 	
 	/**
-	 * @field chess_board - 2D 8x8 Object array of type Chess
 	 * This field is initializing the size of the chess board to be of object type Chess which is an 8x8 matrix
 	 */
 	public static Chess[][] chess_board = new Chess[8][8];
@@ -149,6 +148,8 @@ public class Chess {
 	}
 	/**
 	 * This method is used only in the king classes and checks to see if king is in check
+	 * @param x - x coordinate of the king's move
+	 * @param y - y coordinate of the king's move
 	 * @return boolean - true if the king is in check
 	 */
 	public boolean isCheck(int x, int y) {
@@ -171,7 +172,9 @@ public class Chess {
 
 	/**
 	 * In the event that king is in check, this method returns the spots between attacker and king
-	 * @return ArrayList<int []> - arraylist of spots between attacker and king
+	 * @param attackerPos - Position of the attacking piece
+	 * @param kingPos - Position of the King piece
+	 * @return ArrayList - arraylist of spots between attacker and king
 	 */
 	public ArrayList<int []> getSpots(int[] attackerPos, int[] kingPos) {
 		return null;
@@ -714,7 +717,7 @@ public class Chess {
 	
 	/**
 	 * This is the main method which is used to run the program
-	 * @param args
+	 * @param args - Arguments given in command line
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		initBoard();

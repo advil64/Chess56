@@ -11,13 +11,11 @@ import chess.Chess;
 public class Knight extends Chess {
 	/**
 	 * This field is to used identify the Knight piece on the chess board
-	 * @field id - value of id
 	 */
 	
 	String id;
 	/**
 	 * This field is used to identify the color of the Knight piece
-	 * @field color - value of color
 	 */
 	String color;
 	

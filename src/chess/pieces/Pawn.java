@@ -11,31 +11,26 @@ import chess.Chess;
 public class Pawn extends Chess{
 	/**
 	 * This field is to used identify the Pawn piece on the chess board
-	 * @field id - value of id
 	 */
 	String id;
 	
 	/**
 	 * This field is used to identify the color of the Pawn piece
-	 * @field color - value of color
 	 */
 	String color;
 	
 	/**
 	 * This field is used to indicate if it is pawn's first move
-	 * @field first - value of first
 	 */
 	boolean first = true;
 	
 	/**
 	 * This field is used to indicate if the pawn performed a two-step as the first move
-	 * @field two_step - value of two_step
 	 */
 	boolean two_step = false;
 	
 	/**
 	 * This field is used to indicate the number of moves the pawn is out of its original spot
-	 * @field count - value of count
 	 */
 	int count = 0;
 	

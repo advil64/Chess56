@@ -13,13 +13,11 @@ import java.util.ArrayList;
 public class Queen extends Chess {
 	/**
 	 * This field is to used identify the Queen piece on the chess board
-	 * @field id - value of id
 	 */
 	String id;
 	
 	/**
 	 * This field is used to identify the color of the Queen piece
-	 * @field color - value of color
 	 */
 	String color;
 	
@@ -149,7 +147,9 @@ public class Queen extends Chess {
 
 	/**
 	 * In the event that king is in check, this method returns the spots between attacker and king
-	 * @return ArrayList<int []> - arraylist of spots between attacker and king
+	 * @param attackerPos - Position of the attacking piece
+	 * @param kingPos - Position of the King piece
+	 * @return ArrayList - arraylist of spots between attacker and king
 	 */
 	public ArrayList<int[]> getSpots(int[] attackerPos, int[] kingPos) {
 		ArrayList<int[]> spots = new ArrayList<>();
