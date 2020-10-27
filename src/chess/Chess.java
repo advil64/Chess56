@@ -724,8 +724,8 @@ public class Chess {
 		printBoard();
 
 		// TODO get rid of this line after testing
-		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
-		//File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
+		//File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
+		File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
 		Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
@@ -816,6 +816,10 @@ public class Chess {
 									check = false;
 									System.out.println();
 									printBoard();
+									if(check()){
+										//this is a checkmate
+										break;
+									}
 									continue;
 								}
 								chess_board[7][3] = new Empty("  ", "white");
@@ -913,6 +917,10 @@ public class Chess {
 									check = true;
 									System.out.println();
 									printBoard();
+									if(check()){
+										//this is a checkmate
+										break;
+									}
 									continue;
 								}
 								chess_board[0][5] = new Empty("##", "black");
