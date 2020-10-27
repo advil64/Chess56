@@ -183,7 +183,7 @@ public class Chess {
 		return null;
 	}
 	public boolean move_makes_check(int start[], int dest[]) {
-		return true;
+		return false;
 	}
 	
 	/**
