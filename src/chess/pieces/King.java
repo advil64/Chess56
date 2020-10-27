@@ -104,7 +104,7 @@ public class King extends Chess{
 			isValid = true;
 		}
 		//now check if the king is moving into a check position, this is also illegal
-		return isValid && !isCheck(dest_i, dest_j);
+		return (isValid && !isCheck(dest_i, dest_j));
 	}
 
 	/**
@@ -114,15 +114,47 @@ public class King extends Chess{
 	 * @return boolean - true if the king is in check
 	 */
 	public boolean isCheck(int x, int y) {
+		//store king cordinates
+		int[] kPos = null;
+		Chess temp = null;
+		Chess temp2 = null;
+		//loop through to find the king
+		for(int i = 0; i < chess_board.length; i++){
+			for(int j = 0; j < chess_board[0].length; j++){
+				temp = chess_board[i][j];
+				if(temp.getId().equals(this.getId())){
+					kPos = new int[]{i,j};
+				}
+			}
+		}
+		if(kPos != null) {
+			temp2 = chess_board[x][y];
+			chess_board[x][y] = chess_board[kPos[0]][kPos[1]];
+			if ((kPos[0] % 2 == 0 && kPos[1] % 2 == 0) || (kPos[0] % 2 != 0 && kPos[1] % 2 != 0)) {
+				chess_board[kPos[0]][kPos[1]] = new Empty("  ", "white");
+			}
+			if ((kPos[0] % 2 == 0 && kPos[1] % 2 != 0) || (kPos[0] % 2 != 0 && kPos[1] % 2 == 0)) {
+				chess_board[kPos[0]][kPos[1]] = new Empty("##", "black");
+			}
+		}
 		//basically loop through the array and check if any other piece can move there
-		Chess temp;
 		for(int i = 0; i < chess_board.length; i++){
 			for(int j = 0; j < chess_board[0].length; j++){
 				temp = chess_board[i][j];
 				if(temp.getId().charAt(1) != 'K' && temp.isValid(new int[]{i,j}, new int[]{x,y}) && temp.getId().charAt(0) != this.getId().charAt(0)){
+					//reset
+					chess_board[kPos[0]][kPos[1]] = chess_board[x][y];
+					if(temp2 != null) {
+						chess_board[x][y] = temp2;
+					}
 					return true;
 				}
 			}
+		}
+		//reset
+		chess_board[kPos[0]][kPos[1]] = chess_board[x][y];
+		if(temp2 != null) {
+			chess_board[x][y] = temp2;
 		}
 		return false;
 	}
