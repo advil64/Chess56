@@ -115,7 +115,10 @@ public class King extends Chess{
 		return false;
 	}
 
-
+	/**
+	 * TODO Write this javadoc
+	 * @return
+	 */
 	public boolean isCheck(int x, int y) {
 		//basically loop through the array and check if any other piece can move there
 		Chess temp;

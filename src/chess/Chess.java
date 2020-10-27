@@ -151,12 +151,9 @@ public class Chess {
 	public void setCount(int i) {
 	}
 	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @return boolean
+	 * TODO Write this javadoc
+	 * @return
 	 */
-	//only used in king class
 	public boolean isCheck(int x, int y) {
 		return false;
 	}
@@ -182,6 +179,13 @@ public class Chess {
 	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
 		return null;
 	}
+	/**
+	 * This method takes in a starting position and destination position and tests to see if that particular move would keep the king in check
+	 * or put the king in check
+	 * @param start - starting index of piece
+	 * @param dest - ending index of piece
+	 * @return - boolean indicating if king is in check
+	 */
 	public boolean move_makes_check(int start[], int dest[]) {
 		return false;
 	}
@@ -485,6 +489,7 @@ public class Chess {
 		if((start_indexes[0]%2==0 && start_indexes[1]%2!=0) || (start_indexes[0]%2!=0 && start_indexes[1]%2==0)) {
 			chess_board[start_indexes[0]][start_indexes[1]] = new Empty("##", "black");
 		}
+		
 	}
 
 	//traverses the board to check if the board is in a check state
@@ -553,7 +558,8 @@ public class Chess {
 			for(int i = 0; i < chess_board.length; i++) {
 				for (int j = 0; j < chess_board[0].length; j++) {
 					temp = chess_board[i][j];
-					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'b' && temp.isValid(new int[]{i,j}, attackerPos)){
+					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'b' && temp.isValid(new int[]{i,j}, attackerPos) 
+							&& temp.move_makes_check(new int[]{i,j}, attackerPos) == false){
 						if(temp.getId().charAt(1) == 'P'){
 							temp.setPawnFirst(true);
 						}
@@ -579,7 +585,7 @@ public class Chess {
 			for(int i = 0; i < chess_board.length; i++){
 				for(int j = 0; j < chess_board[0].length; j++){
 					temp = chess_board[i][j];
-					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'b' && temp.isValid(new int[]{i,j}, wpos)){
+					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'b' && temp.isValid(new int[]{i,j}, wpos)){	
 						attacker = chess_board[i][j];
 						attackerPos = new int[]{i,j};
 					}
@@ -593,7 +599,7 @@ public class Chess {
 					for(int i = 0; i < chess_board.length; i++) {
 						for (int j = 0; j < chess_board[0].length; j++) {
 							temp = chess_board[i][j];
-							if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'w' && temp.isValid(new int[]{i,j}, x)){
+							if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'w' && temp.isValid(new int[]{i,j}, x)){	
 								if(temp.getId().charAt(1) == 'P'){
 									temp.setPawnFirst(true);
 								}
@@ -607,7 +613,8 @@ public class Chess {
 			for(int i = 0; i < chess_board.length; i++) {
 				for (int j = 0; j < chess_board[0].length; j++) {
 					temp = chess_board[i][j];
-					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'w' && temp.isValid(new int[]{i,j}, attackerPos)){
+					if(temp.getId().charAt(1) != 'K' && temp.getId().charAt(0) == 'w' && temp.isValid(new int[]{i,j}, attackerPos)
+							&& temp.move_makes_check(new int[]{i,j}, attackerPos) == false){
 						if(temp.getId().charAt(1) == 'P'){
 							temp.setPawnFirst(true);
 						}
@@ -615,7 +622,6 @@ public class Chess {
 					}
 				}
 			}
-
 			System.out.println("Checkmate");
 			System.out.println("Black wins");
 			return true;

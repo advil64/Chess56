@@ -162,6 +162,7 @@ public class Bishop extends Chess{
 				}
 			}
 		}
+		Chess temp2 = chess_board[dest[0]][dest[1]];
 		chess_board[dest[0]][dest[1]] = chess_board[start[0]][start[1]];
 		if((start[0]%2==0 && start[1]%2==0) || (start[0]%2!=0 && start[1]%2!=0)) {
 			chess_board[start[0]][start[1]] = new Empty("  ", "white");
@@ -169,6 +170,7 @@ public class Bishop extends Chess{
 		if((start[0]%2==0 && start[1]%2!=0) || (start[0]%2!=0 && start[1]%2==0)) {
 			chess_board[start[0]][start[1]] = new Empty("##", "black");
 		}
+
 		//checking to see if the King is still in check after the move
 		Chess temp;
 		for(int i = 0; i < chess_board.length; i++){
@@ -178,24 +180,14 @@ public class Bishop extends Chess{
 				if(temp.getId().charAt(1) != 'K' && temp.isValid(new int[]{i,j}, new int[]{K_row,K_col}) && temp.getId().charAt(0) != chess_board[dest[0]][dest[1]].getId().charAt(0)){
 					//reset the move
 					chess_board[start[0]][start[1]] = chess_board[dest[0]][dest[1]];
-					if((dest[0]%2==0 && dest[1]%2==0) || (dest[0]%2!=0 && dest[1]%2!=0)) {
-						chess_board[dest[0]][dest[1]] = new Empty("  ", "white");
-					}
-					if((dest[0]%2==0 && dest[1]%2!=0) || (dest[0]%2!=0 && dest[1]%2==0)) {
-						chess_board[dest[0]][dest[1]] = new Empty("##", "black");
-					}
+					chess_board[dest[0]][dest[1]] = temp2;
 					return true;
 				}
 			}
 		}
 		//reset the move
 		chess_board[start[0]][start[1]] = chess_board[dest[0]][dest[1]];
-		if((dest[0]%2==0 && dest[1]%2==0) || (dest[0]%2!=0 && dest[1]%2!=0)) {
-			chess_board[dest[0]][dest[1]] = new Empty("  ", "white");
-		}
-		if((dest[0]%2==0 && dest[1]%2!=0) || (dest[0]%2!=0 && dest[1]%2==0)) {
-			chess_board[dest[0]][dest[1]] = new Empty("##", "black");
-		}
+		chess_board[dest[0]][dest[1]] = temp2;
 		return false;
 	}
 }
