@@ -182,6 +182,9 @@ public class Chess {
 	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
 		return null;
 	}
+	public boolean move_makes_check(int start[], int dest[]) {
+		return true;
+	}
 	
 	/**
 	 * This method is called to print the chess_board
@@ -711,7 +714,7 @@ public class Chess {
 		printBoard();
 
 		// TODO get rid of this line after testing
-		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
+		File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
 		Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
@@ -822,7 +825,8 @@ public class Chess {
 				
 				boolean occupy = occupy(start_indexes,destination_indexes);
 				//checks if the move is valid for the piece
-				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true) {
+				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true 
+						|| chess_board[start_indexes[0]][start_indexes[1]].move_makes_check(start_indexes,destination_indexes) == true) {
 					System.out.println("Illegal move, try again");
 				}
 				//if valid move, update board and set to black's move
@@ -950,7 +954,8 @@ public class Chess {
 				
 				boolean occupy = occupy(start_indexes,destination_indexes);
 				//checks if the move is valid for the piece
-				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true) {
+				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true 
+						|| chess_board[start_indexes[0]][start_indexes[1]].move_makes_check(start_indexes,destination_indexes) == true) {
 					System.out.println("Illegal move, try again");
 				}
 				//if valid move, update board and set to white's move

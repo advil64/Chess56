@@ -163,4 +163,58 @@ public class Rook extends Chess{
 		}
 		return spots;
 	}
+	/**
+	 * This method checks to see if the move will put or keep the King in check
+	 * @param start - starting indexes of piece
+	 * @param dest - ending indexes of piece
+	 * @return boolean - true if King results in being in check
+	 */
+	public boolean move_makes_check(int start[], int dest[]) {
+		//obtain the index of the King
+		int K_row = 0;
+		int K_col = 0;
+		for(int i=0; i<8; i++) {
+			for(int j=0; j<8; j++) {
+				if(chess_board[i][j].getId().charAt(1) == 'K' && chess_board[i][j].getId().charAt(0) == chess_board[start[0]][start[1]].getId().charAt(0)) {
+					K_row = i;
+					K_col = j;
+				}
+			}
+		}
+		chess_board[dest[0]][dest[1]] = chess_board[start[0]][start[1]];
+		if((start[0]%2==0 && start[1]%2==0) || (start[0]%2!=0 && start[1]%2!=0)) {
+			chess_board[start[0]][start[1]] = new Empty("  ", "white");
+		}
+		if((start[0]%2==0 && start[1]%2!=0) || (start[0]%2!=0 && start[1]%2==0)) {
+			chess_board[start[0]][start[1]] = new Empty("##", "black");
+		}
+		//checking to see if the King is still in check after the move
+		Chess temp;
+		for(int i = 0; i < chess_board.length; i++){
+			for(int j = 0; j < chess_board[0].length; j++){
+				temp = chess_board[i][j];
+				//if a piece can move the King is currently in check
+				if(temp.getId().charAt(1) != 'K' && temp.isValid(new int[]{i,j}, new int[]{K_row,K_col}) && temp.getId().charAt(0) != chess_board[dest[0]][dest[1]].getId().charAt(0)){
+					//reset the move
+					chess_board[start[0]][start[1]] = chess_board[dest[0]][dest[1]];
+					if((dest[0]%2==0 && dest[1]%2==0) || (dest[0]%2!=0 && dest[1]%2!=0)) {
+						chess_board[dest[0]][dest[1]] = new Empty("  ", "white");
+					}
+					if((dest[0]%2==0 && dest[1]%2!=0) || (dest[0]%2!=0 && dest[1]%2==0)) {
+						chess_board[dest[0]][dest[1]] = new Empty("##", "black");
+					}
+					return true;
+				}
+			}
+		}
+		//reset the move
+		chess_board[start[0]][start[1]] = chess_board[dest[0]][dest[1]];
+		if((dest[0]%2==0 && dest[1]%2==0) || (dest[0]%2!=0 && dest[1]%2!=0)) {
+			chess_board[dest[0]][dest[1]] = new Empty("  ", "white");
+		}
+		if((dest[0]%2==0 && dest[1]%2!=0) || (dest[0]%2!=0 && dest[1]%2==0)) {
+			chess_board[dest[0]][dest[1]] = new Empty("##", "black");
+		}
+		return false;
+	}
 }
