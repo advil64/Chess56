@@ -1,32 +1,29 @@
-/**
- * 
- * @author Advith Chegu
- * @author Banty Patel
- *
- */
 package chess.pieces;
 
 import chess.Chess;
 
 /**
  * This class is used to create a King piece object, it extends the Chess class to inherit and override some methods
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
  */
 public class King extends Chess{
 	/**
 	 * This field is to used identify the King piece on the chess board
 	 * @field id - value of id
 	 */
-	String id = "";
+	String id;
 	/**
 	 * This field is used to identify the color of the King piece
 	 * @field color - value of color
 	 */
-	String color = "";
+	String color;
 	/**
 	 * This field is used to identify whether the king has moved out of its original position
 	 * @field moved - value of moved
 	 */
-	boolean moved = false;
+	boolean moved;
 	
 	/**
 	 * This is the constructor used to create a King Object in the Chess class
@@ -85,15 +82,17 @@ public class King extends Chess{
 		int dest_i = dest[0];
 		int dest_j = dest[1];
 		boolean isValid = false;
-		
-		//check if move goes out of bounds
+
+		//check if move goes out of bounds or stays put
 		if(dest_i > 7 || dest_i < 0) {
 			return false;
 		}
 		if(dest_j > 7 || dest_j < 0) {
 			return false;
 		}
-		
+		if(start_i == dest_i && start_j == dest_j){
+			return false;
+		}
 		//row
 		if(dest_i == (start_i+1) && dest_j == start_j || ((dest_i == (start_i-1) && dest_j == start_j))) {
 			isValid = true;
@@ -108,16 +107,12 @@ public class King extends Chess{
 			isValid = true;
 		}
 		//now check if the king is moving into a check position, this is also illegal
-		if(isValid && !isCheck(dest_i, dest_j)){
-			return true;
-		}
-		
-		return false;
+		return isValid && !isCheck(dest_i, dest_j);
 	}
 
 	/**
-	 * TODO Write this javadoc
-	 * @return
+	 * This method is used only in the king classes and checks to see if king is in check
+	 * @return boolean - true if the king is in check
 	 */
 	public boolean isCheck(int x, int y) {
 		//basically loop through the array and check if any other piece can move there

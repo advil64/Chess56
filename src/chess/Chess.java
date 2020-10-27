@@ -1,9 +1,3 @@
-/**
- * 
- * @author Advith Chegu
- * @author Banty Patel
- *
- */
 package chess;
 
 //TODO get rid of this line after testing
@@ -23,6 +17,9 @@ import chess.pieces.Rook;
 
 /**
  * This is the main class named Chess which is used to run the main program
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
  */
 public class Chess {
 	
@@ -151,8 +148,8 @@ public class Chess {
 	public void setCount(int i) {
 	}
 	/**
-	 * TODO Write this javadoc
-	 * @return
+	 * This method is used only in the king classes and checks to see if king is in check
+	 * @return boolean - true if the king is in check
 	 */
 	public boolean isCheck(int x, int y) {
 		return false;
@@ -173,10 +170,10 @@ public class Chess {
 	}
 
 	/**
-	 * TODO Write this javadoc
-	 * @return
+	 * In the event that king is in check, this method returns the spots between attacker and king
+	 * @return ArrayList<int []> - arraylist of spots between attacker and king
 	 */
-	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
+	public ArrayList<int []> getSpots(int[] attackerPos, int[] kingPos) {
 		return null;
 	}
 	/**
@@ -186,7 +183,7 @@ public class Chess {
 	 * @param dest - ending index of piece
 	 * @return - boolean indicating if king is in check
 	 */
-	public boolean move_makes_check(int start[], int dest[]) {
+	public boolean move_makes_check(int[] start, int[] dest) {
 		return false;
 	}
 	
@@ -720,7 +717,7 @@ public class Chess {
 		printBoard();
 
 		// TODO get rid of this line after testing
-		File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
+		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
 		Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
@@ -834,6 +831,7 @@ public class Chess {
 				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true 
 						|| chess_board[start_indexes[0]][start_indexes[1]].move_makes_check(start_indexes,destination_indexes) == true) {
 					System.out.println("Illegal move, try again");
+					continue;
 				}
 				//if valid move, update board and set to black's move
 				else{
@@ -963,6 +961,7 @@ public class Chess {
 				if(!chess_board[start_indexes[0]][start_indexes[1]].isValid(start_indexes,destination_indexes) || occupy == true 
 						|| chess_board[start_indexes[0]][start_indexes[1]].move_makes_check(start_indexes,destination_indexes) == true) {
 					System.out.println("Illegal move, try again");
+					continue;
 				}
 				//if valid move, update board and set to white's move
 				else{

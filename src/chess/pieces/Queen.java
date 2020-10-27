@@ -1,9 +1,3 @@
-/**
- * 
- * @author Advith Chegu
- * @author Banty Patel
- *
- */
 package chess.pieces;
 
 import chess.Chess;
@@ -12,25 +6,27 @@ import java.util.ArrayList;
 
 /**
  * This class is used to create a Queen piece object, it extends the Chess class to inherit and override some methods
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
  */
 public class Queen extends Chess {
 	/**
 	 * This field is to used identify the Queen piece on the chess board
 	 * @field id - value of id
 	 */
-	String id = "";
+	String id;
 	
 	/**
 	 * This field is used to identify the color of the Queen piece
 	 * @field color - value of color
 	 */
-	String color = "";
+	String color;
 	
 	/**
 	 * This is the constructor used to create a Queen Object in the Chess class
 	 * @param id - id of the Queen
 	 * @param color - color of the Queen
-	 * @return Queen - Queen object
 	 */
 	public Queen(String id, String color) {
 		this.id = id;
@@ -62,12 +58,15 @@ public class Queen extends Chess {
 		//dest i and j equals end index
 		int dest_i = dest[0];
 		int dest_j = dest[1];
-		
-		//check if move goes out of bounds
+
+		//check if move goes out of bounds or stays put
 		if(dest_i > 7 || dest_i < 0) {
 			return false;
 		}
 		if(dest_j > 7 || dest_j < 0) {
+			return false;
+		}
+		if(start_i == dest_i && start_j == dest_j){
 			return false;
 		}
 		//movement up/down
@@ -148,7 +147,11 @@ public class Queen extends Chess {
 		return false;
 	}
 
-	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
+	/**
+	 * In the event that king is in check, this method returns the spots between attacker and king
+	 * @return ArrayList<int []> - arraylist of spots between attacker and king
+	 */
+	public ArrayList<int[]> getSpots(int[] attackerPos, int[] kingPos) {
 		ArrayList<int[]> spots = new ArrayList<>();
 		//start_i represents current row, start_j represents current column
 		int start_i = attackerPos[0];
@@ -220,7 +223,7 @@ public class Queen extends Chess {
 	 * @param dest - ending indexes of piece
 	 * @return boolean - true if King results in being in check
 	 */
-	public boolean move_makes_check(int start[], int dest[]) {
+	public boolean move_makes_check(int[] start, int[] dest) {
 		//obtain the index of the King
 		int K_row = 0;
 		int K_col = 0;

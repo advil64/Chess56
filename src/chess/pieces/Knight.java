@@ -1,14 +1,12 @@
-/**
- * 
- * @author Advith Chegu
- * @author Banty Patel
- *
- */
 package chess.pieces;
 
 import chess.Chess;
+
 /**
  * This class is used to create a Knight piece object, it extends the Chess class to inherit and override some methods
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
  */
 public class Knight extends Chess {
 	/**
@@ -16,18 +14,17 @@ public class Knight extends Chess {
 	 * @field id - value of id
 	 */
 	
-	String id = "";
+	String id;
 	/**
 	 * This field is used to identify the color of the Knight piece
 	 * @field color - value of color
 	 */
-	String color = "";
+	String color;
 	
 	/**
 	 * This is the constructor used to create a Knight Object in the Chess class
 	 * @param id - id of the Knight
 	 * @param color - color of the Knight
-	 * @return Bishop - Knight object
 	 */
 	public Knight(String id, String color) {
 		this.id = id;
@@ -55,12 +52,15 @@ public class Knight extends Chess {
 		//dest i and j equals end index
 		int dest_i = dest[0];
 		int dest_j = dest[1];
-		
-		//check if move goes out of bounds
+
+		//check if move goes out of bounds or stays put
 		if(dest_i > 7 || dest_i < 0) {
 			return false;
 		}
 		if(dest_j > 7 || dest_j < 0) {
+			return false;
+		}
+		if(start_i == dest_i && start_j == dest_j){
 			return false;
 		}
 		//knight movement
@@ -78,7 +78,7 @@ public class Knight extends Chess {
 	 * @param dest - ending indexes of piece
 	 * @return boolean - true if King results in being in check
 	 */
-	public boolean move_makes_check(int start[], int dest[]) {
+	public boolean move_makes_check(int[] start, int[] dest) {
 		//obtain the index of the King
 		int K_row = 0;
 		int K_col = 0;

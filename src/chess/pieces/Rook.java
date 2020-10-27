@@ -1,9 +1,3 @@
-/**
- * 
- * @author Advith Chegu
- * @author Banty Patel
- *
- */
 package chess.pieces;
 
 import chess.Chess;
@@ -12,29 +6,31 @@ import java.util.ArrayList;
 
 /**
  * This class is used to create a Rook piece object, it extends the Chess class to inherit and override some methods
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
  */
 public class Rook extends Chess{
 	/**
 	 * This field is to used identify the Rook piece on the chess board
 	 * @field id - value of id
 	 */
-	String id = "";
+	String id;
 	/**
 	 * This field is used to identify the color of the Rook piece
 	 * @field color - value of color
 	 */
-	String color = "";
+	String color;
 	/**
 	 * This field is used to identify whether the Rook has moved out of its original position
 	 * @field moved - value of moved
 	 */
-	boolean moved = false;
+	boolean moved;
 	/**
 	 * This is the constructor used to create a Rook Object in the Chess class
 	 * @param id - id of the Rook
 	 * @param color - color of the Rook
 	 * @param moved - boolean to indicate if the Rook has moved
-	 * @return Rook - Rook object
 	 */
 	public Rook(String id, String color, boolean moved) {
 		this.id = id;
@@ -77,11 +73,14 @@ public class Rook extends Chess{
 		//dest_i represents destination row, dest_j represents destination col
 		int dest_i = dest[0];
 		int dest_j = dest[1];
-		//check if move goes out of bounds
+		//check if move goes out of bounds or stays put
 		if(dest_i > 7 || dest_i < 0) {
 			return false;
 		}
 		if(dest_j > 7 || dest_j < 0) {
+			return false;
+		}
+		if(start_i == dest_i && start_j == dest_j){
 			return false;
 		}
 		//movement up/down
@@ -106,16 +105,15 @@ public class Rook extends Chess{
 		//movement left/right
 		if(start_i == dest_i && start_j != dest_j) {
 			//checking to see whether you are jumping over a piece (not allowed to jump over pieces)
-			if(start_j < dest_j) {
-				for(int j=start_j+1; j<dest_j; j++) {
-					if((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
+			if (start_j < dest_j) {
+				for (int j = start_j + 1; j < dest_j; j++) {
+					if ((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
-			}
-			else {
-				for(int j=start_j-1; j>dest_j; j--) {
-					if((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
+			} else {
+				for (int j = start_j - 1; j > dest_j; j--) {
+					if ((chess_board[start_i][j].getId().charAt(0) != ' ') && (chess_board[start_i][j].getId().charAt(0) != '#')) {
 						return false;
 					}
 				}
@@ -125,7 +123,11 @@ public class Rook extends Chess{
 		return false;
 	}
 
-	public ArrayList getSpots(int[] attackerPos, int[] kingPos) {
+	/**
+	 * In the event that king is in check, this method returns the spots between attacker and king
+	 * @return ArrayList<int []> - arraylist of spots between attacker and king
+	 */
+	public ArrayList<int[]> getSpots(int[] attackerPos, int[] kingPos) {
 		ArrayList<int[]> spots = new ArrayList<>();
 		//start_i represents current row, start_j represents current column
 		int start_i = attackerPos[0];
@@ -169,7 +171,7 @@ public class Rook extends Chess{
 	 * @param dest - ending indexes of piece
 	 * @return boolean - true if King results in being in check
 	 */
-	public boolean move_makes_check(int start[], int dest[]) {
+	public boolean move_makes_check(int[] start, int[] dest) {
 		//obtain the index of the King
 		int K_row = 0;
 		int K_col = 0;

@@ -1,27 +1,25 @@
-/**
- * 
- * @author Advith Chegu
- * @author Banty Patel
- *
- */
 package chess.pieces;
 
 import chess.Chess;
+
 /**
  * This class is used to create a Pawn piece object, it extends the Chess class to inherit and override some methods
+ * @author Advith Chegu
+ * @author Banty Patel
+ *
  */
 public class Pawn extends Chess{
 	/**
 	 * This field is to used identify the Pawn piece on the chess board
 	 * @field id - value of id
 	 */
-	String id = "";
+	String id;
 	
 	/**
 	 * This field is used to identify the color of the Pawn piece
 	 * @field color - value of color
 	 */
-	String color = "";
+	String color;
 	
 	/**
 	 * This field is used to indicate if it is pawn's first move
@@ -45,7 +43,6 @@ public class Pawn extends Chess{
 	 * This is the constructor used to create a Pawn Object in the Chess class
 	 * @param id - id of the Pawn
 	 * @param color - color of the Pawn
-	 * @return Pawn - Pawn object
 	 */
 	public Pawn(String id, String color) {
 		this.id = id;
@@ -82,7 +79,7 @@ public class Pawn extends Chess{
 	}
 	/**
 	 * This method sets the pawn's boolean field, "two_step"
-	 * @param b - is the boolean value the pawn will set it's field "two_step" to
+	 * @param boo - is the boolean value the pawn will set it's field "two_step" to
 	 */
 	public void setTwoStep(boolean boo) {
 		this.two_step = boo;
@@ -131,9 +128,18 @@ public class Pawn extends Chess{
 		//dest_i represents destination row, dest_j represents destination col
 		int dest_i = dest[0];
 		int dest_j = dest[1];
-		
+		//check if move goes out of bounds or stays put
+		if(dest_i > 7 || dest_i < 0) {
+			return false;
+		}
+		if(dest_j > 7 || dest_j < 0) {
+			return false;
+		}
+		if(start_i == dest_i && start_j == dest_j){
+			return false;
+		}
 		//check to see it is the first move for that pawn
-		if(chess_board[start_i][start_j].isfirstMove() == true) {
+		if(chess_board[start_i][start_j].isfirstMove()) {
 			//check to see if it is black or white
 			if(chess_board[start_i][start_j].getColor().equals("white")) {
 				//moving 2 spaces up
@@ -265,7 +271,6 @@ public class Pawn extends Chess{
 				}
 			}
 		}
-		
 		return false;
 	}
 	/**
@@ -274,7 +279,7 @@ public class Pawn extends Chess{
 	 * @param dest - ending indexes of piece
 	 * @return boolean - true if King results in being in check
 	 */
-	public boolean move_makes_check(int start[], int dest[]) {
+	public boolean move_makes_check(int[] start, int[] dest) {
 		//obtain the index of the King
 		int K_row = 0;
 		int K_col = 0;
