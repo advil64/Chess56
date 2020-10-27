@@ -718,6 +718,7 @@ public class Chess {
 
 		// TODO get rid of this line after testing
 		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
+		//File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
 		Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
@@ -900,8 +901,8 @@ public class Chess {
 									//update the board accordingly
 									chess_board[0][6] = chess_board[0][4];
 									chess_board[0][5] = chess_board[0][7];
-									chess_board[0][4] = new Empty("##", "black");
-									chess_board[0][7] = new Empty("  ", "white");
+									chess_board[0][7] = new Empty("##", "black");
+									chess_board[0][4] = new Empty("  ", "white");
 									check = true;
 									System.out.println();
 									printBoard();
