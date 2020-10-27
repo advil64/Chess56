@@ -191,6 +191,87 @@ public class Chess {
 	}
 	
 	/**
+	 * This method takes in a string of the input and returns a boolean indicating if the input is valid
+	 * @param move - String holding the input
+	 * @return - boolean indicating if the input was valid
+	 */
+	public static boolean checkParameters(String move) {
+		if(move.equals("")) {
+			return false;
+		}
+		if(move.equals("resign") || move.equals("draw")) {
+			return true;
+		}
+		//check to see if the first 2 args are of length 2 and 1st char is a letter and 2nd char is a num
+		if(Character.isLetter(move.charAt(0)) && Character.isDigit(move.charAt(1)) && move.charAt(2) == ' '
+				&& Character.isLetter(move.charAt(3)) && Character.isDigit(move.charAt(4))) {
+			if(move.length() == 5) {
+				if((move.charAt(0) == 'a' || move.charAt(0) == 'b' || move.charAt(0) == 'c' || move.charAt(0) == 'd' || move.charAt(0) == 'e' 
+						|| move.charAt(0) == 'f' || move.charAt(0) == 'g' || move.charAt(0) == 'h') && (move.charAt(1) == '1' || move.charAt(1) == '2'
+						|| move.charAt(1) == '3' || move.charAt(1) == '4' || move.charAt(1) == '5' || move.charAt(1) == '6' || move.charAt(1) == '7'
+						|| move.charAt(1) == '8') && (move.charAt(3) == 'a' || move.charAt(3) == 'b' || move.charAt(3) == 'c' || move.charAt(3) == 'd'
+						|| move.charAt(3) == 'e' || move.charAt(3) == 'f' || move.charAt(3) == 'g' || move.charAt(3) == 'h') && (move.charAt(4) == '1'
+						|| move.charAt(4) == '2' || move.charAt(4) == '3' || move.charAt(4) == '4' || move.charAt(4) == '5' || move.charAt(4) == '6'
+						|| move.charAt(4) == '7' || move.charAt(4) == '8')) {
+					return true;
+				}
+			}
+			//if length is 7 (promotion) check to see if last letter is R,N,B,Q
+			int start[] = find_indexes(move.substring(0,2));
+			int dest[] = find_indexes(move.substring(3,5));
+			if(move.length() == 7 && (move.charAt(6) == 'R' || move.charAt(6) == 'N' || move.charAt(6) == 'B' || move.charAt(6) == 'Q')) {
+				if((move.charAt(0) == 'a' || move.charAt(0) == 'b' || move.charAt(0) == 'c' || move.charAt(0) == 'd' || move.charAt(0) == 'e' 
+						|| move.charAt(0) == 'f' || move.charAt(0) == 'g' || move.charAt(0) == 'h') && (move.charAt(1) == '1' || move.charAt(1) == '2'
+						|| move.charAt(1) == '3' || move.charAt(1) == '4' || move.charAt(1) == '5' || move.charAt(1) == '6' || move.charAt(1) == '7'
+						|| move.charAt(1) == '8') && (move.charAt(3) == 'a' || move.charAt(3) == 'b' || move.charAt(3) == 'c' || move.charAt(3) == 'd'
+						|| move.charAt(3) == 'e' || move.charAt(3) == 'f' || move.charAt(3) == 'g' || move.charAt(3) == 'h') && (move.charAt(4) == '1'
+						|| move.charAt(4) == '2' || move.charAt(4) == '3' || move.charAt(4) == '4' || move.charAt(4) == '5' || move.charAt(4) == '6'
+						|| move.charAt(4) == '7' || move.charAt(4) == '8')) {
+					//check if pawn and is promotion is allowed
+					if(chess_board[start[0]][start[1]].getId().equals("wp") && dest[0] == 0) {
+						return true;
+					}
+					if(chess_board[start[0]][start[1]].getId().equals("bp") && dest[0] == 7) {
+						return true;
+					}
+				}
+			}
+			//if length is 11 (asking for draw)
+			if(move.length() == 11 && move.substring(6).equals("draw?")) {
+				if((move.charAt(0) == 'a' || move.charAt(0) == 'b' || move.charAt(0) == 'c' || move.charAt(0) == 'd' || move.charAt(0) == 'e' 
+						|| move.charAt(0) == 'f' || move.charAt(0) == 'g' || move.charAt(0) == 'h') && (move.charAt(1) == '1' || move.charAt(1) == '2'
+						|| move.charAt(1) == '3' || move.charAt(1) == '4' || move.charAt(1) == '5' || move.charAt(1) == '6' || move.charAt(1) == '7'
+						|| move.charAt(1) == '8') && (move.charAt(3) == 'a' || move.charAt(3) == 'b' || move.charAt(3) == 'c' || move.charAt(3) == 'd'
+						|| move.charAt(3) == 'e' || move.charAt(3) == 'f' || move.charAt(3) == 'g' || move.charAt(3) == 'h') && (move.charAt(4) == '1'
+						|| move.charAt(4) == '2' || move.charAt(4) == '3' || move.charAt(4) == '4' || move.charAt(4) == '5' || move.charAt(4) == '6'
+						|| move.charAt(4) == '7' || move.charAt(4) == '8')) {
+					return true;
+				}
+			}
+			//if length is 13 (asking for draw with promotion)
+			if(move.length() == 13 && (move.charAt(6) == 'R' || move.charAt(6) == 'N' || move.charAt(6) == 'B' || move.charAt(6) == 'Q')
+					&& move.substring(8).equals("draw?")) {
+				if((move.charAt(0) == 'a' || move.charAt(0) == 'b' || move.charAt(0) == 'c' || move.charAt(0) == 'd' || move.charAt(0) == 'e' 
+						|| move.charAt(0) == 'f' || move.charAt(0) == 'g' || move.charAt(0) == 'h') && (move.charAt(1) == '1' || move.charAt(1) == '2'
+						|| move.charAt(1) == '3' || move.charAt(1) == '4' || move.charAt(1) == '5' || move.charAt(1) == '6' || move.charAt(1) == '7'
+						|| move.charAt(1) == '8') && (move.charAt(3) == 'a' || move.charAt(3) == 'b' || move.charAt(3) == 'c' || move.charAt(3) == 'd'
+						|| move.charAt(3) == 'e' || move.charAt(3) == 'f' || move.charAt(3) == 'g' || move.charAt(3) == 'h') && (move.charAt(4) == '1'
+						|| move.charAt(4) == '2' || move.charAt(4) == '3' || move.charAt(4) == '4' || move.charAt(4) == '5' || move.charAt(4) == '6'
+						|| move.charAt(4) == '7' || move.charAt(4) == '8')) {
+					//check if pawn and is promotion is allowed
+					if(chess_board[start[0]][start[1]].getId().equals("wp") && dest[0] == 0) {
+						return true;
+					}
+					if(chess_board[start[0]][start[1]].getId().equals("bp") && dest[0] == 7) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * This method is called to print the chess_board
 	 */
 	public static void printBoard() {
@@ -724,8 +805,8 @@ public class Chess {
 		printBoard();
 
 		// TODO get rid of this line after testing
-		//File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
-		File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
+		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
+		//File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
 		Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
@@ -737,6 +818,10 @@ public class Chess {
 				System.out.print("White's move: ");
 				//Scanner scan = new Scanner(System.in); TODO change back after testing
 				String move = scan.nextLine();
+				if(checkParameters(move) == false) {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
 				//checking to see if player resigned
 				if(move.equals("resign")) {
 					System.out.println("Black wins");
@@ -871,6 +956,10 @@ public class Chess {
 			if(check == false) {
 				System.out.print("Black's move: ");
 				String move = scan.nextLine();
+				if(checkParameters(move) == false) {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
 				//checking to see if player resigned
 				if(move.equals("resign")) {
 					System.out.println("White wins");
