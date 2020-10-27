@@ -489,8 +489,12 @@ public class Chess {
 		
 	}
 
-	//traverses the board to check if the board is in a check state
-	private static boolean check(boolean turn) {
+	/**
+	 * This method traverses the board after each turn to check if the board is in a check state
+	 * @return boolean - Indicates if either color king is in checkmate
+	 *
+	 */
+	private static boolean check() {
 		//first find the king
 		Chess temp;
 		Chess black_king = chess_board[0][4];
@@ -852,7 +856,7 @@ public class Chess {
 				}
 			}
 			//check in between turns
-			if(check(check)){
+			if(check()){
 				//this is a checkmate
 				break;
 			}
@@ -981,7 +985,7 @@ public class Chess {
 					check = true;
 				}
 			}
-			if(check(check)){
+			if(check()){
 				//this is a checkmate
 				break;
 			}
