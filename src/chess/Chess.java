@@ -806,7 +806,7 @@ public class Chess {
 
 		// TODO get rid of this line after testing
 		//File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
-		File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
+		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
 		//Scanner scan = new Scanner(System.in);
 		Scanner scan = new Scanner(moves);
 		boolean check = true;

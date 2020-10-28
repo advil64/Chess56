@@ -127,7 +127,7 @@ public class King extends Chess{
 				}
 			}
 		}
-		if(kPos != null) {
+		if(kPos != null && (kPos[0] != x || kPos[1] != y)) {
 			temp2 = chess_board[x][y];
 			chess_board[x][y] = chess_board[kPos[0]][kPos[1]];
 			if ((kPos[0] % 2 == 0 && kPos[1] % 2 == 0) || (kPos[0] % 2 != 0 && kPos[1] % 2 != 0)) {
@@ -142,19 +142,23 @@ public class King extends Chess{
 			for(int j = 0; j < chess_board[0].length; j++){
 				temp = chess_board[i][j];
 				if(temp.getId().charAt(1) != 'K' && temp.isValid(new int[]{i,j}, new int[]{x,y}) && temp.getId().charAt(0) != this.getId().charAt(0)){
-					//reset
-					chess_board[kPos[0]][kPos[1]] = chess_board[x][y];
-					if(temp2 != null) {
-						chess_board[x][y] = temp2;
+					if(kPos[0] != x || kPos[1] != y) {
+						//reset
+						chess_board[kPos[0]][kPos[1]] = chess_board[x][y];
+						if (temp2 != null) {
+							chess_board[x][y] = temp2;
+						}
+						return true;
 					}
-					return true;
 				}
 			}
 		}
-		//reset
-		chess_board[kPos[0]][kPos[1]] = chess_board[x][y];
-		if(temp2 != null) {
-			chess_board[x][y] = temp2;
+		if(kPos[0] != x || kPos[1] != y) {
+			//reset
+			chess_board[kPos[0]][kPos[1]] = chess_board[x][y];
+			if (temp2 != null) {
+				chess_board[x][y] = temp2;
+			}
 		}
 		return false;
 	}
