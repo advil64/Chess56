@@ -312,7 +312,7 @@ public class Chess {
 		//check to see if pawn reaches the end index
 		//if the pawn reaches the end index automatically set pawn to queen if promotion type is not specified
 		//white pawn
-		if(move.length() == 5 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("wp") && destination_indexes[0] == 0) {
+		if((move.length() == 5 || (move.length() == 11 && move.substring(6).equals("draw?"))) && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("wp") && destination_indexes[0] == 0) {
 			//set pawn destination to queen
 			chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("wQ", "white");
 			//set original spot to empty
@@ -325,7 +325,7 @@ public class Chess {
 			return;
 		}
 		//pawn reaches end and promotion type is specified
-		if(move.length() == 7 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("wp") && destination_indexes[0] == 0) {
+		if((move.length() == 7 || move.length() == 13) && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("wp") && destination_indexes[0] == 0) {
 			switch(move.charAt((6))) {
 				case 'R':
 					//set pawn destination to rook
@@ -386,7 +386,7 @@ public class Chess {
 			return;
 		}
 		//black pawn promotion
-		if(move.length() == 5 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("bp") && destination_indexes[0] == 7) {
+		if((move.length() == 5 || (move.length() == 11 && move.substring(6).equals("draw?"))) && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("bp") && destination_indexes[0] == 7) {
 			//set pawn destination to queen
 			chess_board[destination_indexes[0]][destination_indexes[1]] = new Queen("bQ", "white");
 			//set original spot to empty
@@ -399,7 +399,7 @@ public class Chess {
 			return;
 		}
 		//pawn reaches end and promotion type is specified
-		if(move.length() == 7 && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("bp") && destination_indexes[0] == 7) {
+		if((move.length() == 7 || move.length() == 13) && chess_board[start_indexes[0]][start_indexes[1]].getId().equals("bp") && destination_indexes[0] == 7) {
 			switch(move.charAt((6))) {
 				case 'R':
 					//set pawn destination to rook
@@ -805,9 +805,10 @@ public class Chess {
 		printBoard();
 
 		// TODO get rid of this line after testing
-		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
+		//File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
 		//File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
-		Scanner scan = new Scanner(moves);
+		Scanner scan = new Scanner(System.in);
+		//Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
 		int[] destination_indexes = new int[2];
@@ -934,7 +935,10 @@ public class Chess {
 				else{
 					if(move.length() > 5) {
 						//checking to see if user wants to request a draw
-						if(draw == false && move.substring(6).equals("draw?")) {
+						if(draw == false && (move.substring(6).equals("draw?"))) {
+							draw = true;
+						}
+						if(move.length() == 13 && move.substring(8).equals("draw?")) {
 							draw = true;
 						}
 					}
@@ -1072,7 +1076,10 @@ public class Chess {
 				else{
 					//check to see if user wants to request a draw
 					if(move.length()> 5) {
-						if(draw == false && move.substring(6).equals("draw?") ) {
+						if(draw == false && move.substring(6).equals("draw?")) {
+							draw = true;
+						}
+						if(move.length() == 13 && move.substring(8).equals("draw?")) {
 							draw = true;
 						}
 					}
