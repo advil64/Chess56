@@ -77,7 +77,7 @@ public class Chess {
 		chess_board[6][5] = new Pawn("wp", "white");
 		chess_board[6][6] = new Pawn("wp", "white");
 		chess_board[6][7] = new Pawn("wp", "white");
-		
+
 	}
 	/**
 	 * This method is overridden in the chess pieces' classes to return their ID
@@ -806,9 +806,9 @@ public class Chess {
 
 		// TODO get rid of this line after testing
 		//File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
-		File moves = new File("/Users/advithchegu/Desktop/Random Code/chess56/moves.txt");
-		//Scanner scan = new Scanner(System.in);
-		Scanner scan = new Scanner(moves);
+		//File moves = new File("C:\\Users\\bunty\\OneDrive\\Desktop\\chess56\\moves.txt");
+		Scanner scan = new Scanner(System.in);
+		//Scanner scan = new Scanner(moves);
 		boolean check = true;
 		int[] start_indexes = new int[2];
 		int[] destination_indexes = new int[2];
@@ -883,7 +883,7 @@ public class Chess {
 						continue;
 					}
 					//checking if castling right and king is not in check (white)
-					if(start_indexes[0] == 7 && start_indexes[1] == 4 && destination_indexes[0] == 7 && destination_indexes[1] == 1
+					if(start_indexes[0] == 7 && start_indexes[1] == 4 && destination_indexes[0] == 7 && destination_indexes[1] == 2
 							&& chess_board[7][0].getId().equals("wR") && chess_board[7][4].isCheck(start_indexes[0],start_indexes[1]) == false) {
 						//check to see if king and rook did not move
 						if(chess_board[start_indexes[0]][start_indexes[1]].getMoved() == false && chess_board[7][0].getMoved() == false) {
@@ -891,13 +891,12 @@ public class Chess {
 							if((chess_board[7][3].getId().charAt(0) == ' ') && (chess_board[7][2].getId().charAt(0) == '#') && (chess_board[7][1].getId().charAt(0) == ' ')) {
 								chess_board[7][3] = chess_board[7][4];
 								chess_board[7][2] = chess_board[7][4];
-								chess_board[7][1] = chess_board[7][4];
-								if(chess_board[7][4].isCheck(7,3) == false && chess_board[7][4].isCheck(7,2) == false && chess_board[7][4].isCheck(7,1) == false) {
+								if(chess_board[7][4].isCheck(7,3) == false && chess_board[7][4].isCheck(7,2) == false) {
 									//update the board accordingly
-									chess_board[7][1] = chess_board[7][4];
-									chess_board[7][2] = chess_board[7][0];
+									chess_board[7][2] = chess_board[7][4];
+									chess_board[7][3] = chess_board[7][0];
 									chess_board[7][4] = new Empty("##", "black");
-									chess_board[7][3] = new Empty("  ", "white");
+									chess_board[7][1] = new Empty("  ", "white");
 									chess_board[7][0] = new Empty("##", "white");
 									check = false;
 									System.out.println();
@@ -1028,7 +1027,7 @@ public class Chess {
 						continue;
 					}
 					//checking if castling left and king is not in check (black)
-					if(start_indexes[0] == 0 && start_indexes[1] == 4 && destination_indexes[0] == 0 && destination_indexes[1] == 1
+					if(start_indexes[0] == 0 && start_indexes[1] == 4 && destination_indexes[0] == 0 && destination_indexes[1] == 2
 							&& chess_board[0][0].getId().equals("bR") && chess_board[0][4].isCheck(start_indexes[0],start_indexes[1]) == false) {
 						//check to see if king and rook did not move
 						if(chess_board[start_indexes[0]][start_indexes[1]].getMoved() == false && chess_board[0][0].getMoved() == false) {
@@ -1036,13 +1035,12 @@ public class Chess {
 							if((chess_board[0][3].getId().charAt(0) == '#') && (chess_board[0][2].getId().charAt(0) == ' ') && (chess_board[0][1].getId().charAt(0) == '#')) {
 								chess_board[0][3] = chess_board[0][4];
 								chess_board[0][2] = chess_board[0][4];
-								chess_board[0][1] = chess_board[0][4];
-								if(chess_board[0][4].isCheck(0,3) == false && chess_board[0][4].isCheck(0,2) == false && chess_board[0][4].isCheck(0,1) == false) {
+								if(chess_board[0][4].isCheck(0,3) == false && chess_board[0][4].isCheck(0,2) == false) {
 									//update the board accordingly
-									chess_board[0][1] = chess_board[0][4];
-									chess_board[0][2] = chess_board[0][0];
+									chess_board[0][2] = chess_board[0][4];
+									chess_board[0][3] = chess_board[0][0];
 									chess_board[0][4] = new Empty("  ", "white");
-									chess_board[0][3] = new Empty("##", "white");
+									chess_board[0][1] = new Empty("##", "white");
 									chess_board[0][0] = new Empty("  ", "white");
 									check = true;
 									System.out.println();
