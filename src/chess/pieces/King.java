@@ -148,8 +148,8 @@ public class King extends Chess{
 						if (temp2 != null) {
 							chess_board[x][y] = temp2;
 						}
-						return true;
 					}
+					return true;
 				}
 			}
 		}
